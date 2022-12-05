@@ -1,0 +1,28 @@
+body {
+  background-color: #302c2b;
+}
+
+.CodeMirror {
+  height: auto !important;
+}
+
+#code-area {
+  margin: 0px auto;
+  max-width: 700px;
+}
+
+#viz-area {
+  margin-top: 15px;
+  width: 100%
+}
+
+.element {
+  fill: #50A2A7;
+}
+
+.elem-content {
+  text-anchor: middle;
+  stroke: none;
+  fill: #302C2B;
+  font-size: 14px;
+}

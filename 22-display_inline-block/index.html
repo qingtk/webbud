@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="utf-8">
+  <title>Wavemark</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/marked"></script>
+
+</head>
+
+<body>
+  <div id="toolbar"><button onclick="preview()">Preview</button></div>
+  <div id="mainPanel">
+    <textarea id="editor1" name="editor1" rows=36>##### 写诗
+
+- - -
+### 快乐的历程
+@20190815 阿蒙
+
+凝望蓝色星球的辽阔地图  
+我想去喜马拉雅山的河流  
+想去西伯利亚冰雪笼罩的森林  
+在密密的丛林摸索冬季的秘密  
+然后出发去最大的格陵兰岛  
+躺在北冰洋的一块浮冰上静静的睡眠  
+让高爽的风  
+吹远我浮游的思念与理想  
+想想，那一定是一次快乐的历程  
+
+- - -      
+> blockqoute
+
+unpkg
+: a cds tool
+
+dinosaur
+~ an ancient animal
+
+</textarea>
+    <div id="preview"></div>
+  </div>
+
+  <script>
+    function _(id) { return document.getElementById(id) }
+    function preview() {
+      _('preview').innerHTML = marked(_('editor1').value)
+    }
+    preview();  
+  </script>
+
+</body>
+
+</html>

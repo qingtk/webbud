@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Array Splice</title>
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/theme/pastel-on-dark.min.css"/>
+</head>
+<body>
+    <div id="code-area">
+      <textarea>let fruits = ["apple", "banana", "orange", "blueberry", "strawberry","watermelon","kiwi","pineapple"];
+fruits.splice(2, 1); // Delete 1 element starting at index 2 (i.e. orange)
+fruits.splice(2, 0, "orange"); // Delete zero elements, and insert orange at index 2
+fruits.splice(2); // Remove everything starting at index 2
+fruits.splice(2, 0, "grape", "coconut"); // Add two new elements
+</textarea>
+      <svg id="viz-area"></svg>
+    </div>
+    
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+    <script>
+        let editor = CodeMirror.fromTextArea(document.querySelector("textarea"), {
+            theme: "pastel-on-dark",
+            mode: "text/javascript"
+        });
+        let _fruits = ["apple", "banana", "orange", "blueberry", "strawberry","watermelon","kiwi","pineapple"];
+        let viz = d3.select("#viz-area");
+
+        function update(fruits) {
+          let u = viz.selectAll(".element")
+            .data(fruits, d => d)
+          
+          u.exit()
+            .transition().duration(1000)
+            .style("opacity", 0).remove();  
+          
+          u.enter()
+            .append("rect")
+            .attr("class", "element")
+            .attr("y", 0)
+            .attr("width", 100)
+            .attr("height", 100)
+            .style("opacity", 0)
+          .attr("x", (d, i) => i * 105)
+            .transition().delay(2000).duration(1000).style("opacity", 1);
+           
+            u.transition().delay(1000).duration(1000)
+            .attr("x", (d, i) => i * 105)
+          
+          u = viz.selectAll(".elem-content")
+             .data(fruits, d => d)
+          
+             u.enter()
+             .append("text")
+             .attr("class", "elem-content")  
+             .attr("x", (d, i) => i * 105 + 50)
+             .attr("y", 50)     
+             .text(d => d)
+             .style("opacity", 0)
+             .transition().delay(2000).duration(500)
+             .style("opacity", 1)
+          
+          u.transition().delay(1000).duration(1000).attr("x", (d, i) => i * 105 + 50)
+          
+          u.exit()
+            .transition().duration(1000)
+            .style("opacity", 0).remove();
+        }
+
+        update(_fruits);
+        setTimeout(() => {
+          _fruits.splice(2, 1); 
+          update(_fruits);
+        }, 2500);
+         
+        setTimeout(() => {
+          _fruits.splice(2, 0, "orange");
+          update(_fruits);
+        }, 5000)
+      
+        setTimeout(() => {
+          _fruits.splice(2);
+          update(_fruits);
+        }, 9000); 
+      
+        setTimeout(() => {
+          _fruits.splice(2, 0, "grape", "coconut");
+          update(_fruits);
+        }, 10000);   
+    </script>
+
+  <script  src="./script.js"></script>
+</body>
+</html>

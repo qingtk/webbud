@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style>
+    video {
+      border: 2px solid #000;
+    }
+    
+    ::cue {
+      background: transparent;
+      font-size: 11px;
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body>
+
+  <script>
+    (async _ => {
+      const response = await (await fetch("120-cell.ogv")).blob();
+      const blobURL = URL.createObjectURL(response);
+      const codecs = [{
+        mimeType: "video/webm;codecs=vp8"
+      }, {
+        mimeType: "video/webm;codecs=vp9"
+      }, {
+        mimeType: "video/x-matroska;codecs=h264"
+      }];
+      const video = document.createElement("video");
+      document.body.appendChild(video);
+      video.autoplay = true;
+      video.controls = true;
+      video.muted = true;
+      video.preload = "auto";
+      const mediaStream = await new Promise(resolve => {
+        video.onplay = _ => resolve(video.captureStream());
+        video.src = blobURL;
+      });
+      const blobs = await Promise.all(codecs.map(({
+        mimeType
+      }) => {
+        return new Promise(resolve => {
+          const recorder = new MediaRecorder(mediaStream, {
+            mimeType
+          });
+          video.addEventListener("pause", _ => {
+            recorder.stop();
+          }, {
+            once: true
+          });
+          recorder.ondataavailable = ({
+            data
+          }) => resolve(data);
+          recorder.start();
+        });
+      }));
+      console.table(blobs);
+      for (const [index, blob] of blobs.entries()) {
+        const videoStream = document.createElement("video");
+        videoStream.width = videoStream.height = Math.ceil(500 / 3);
+        videoStream.controls = videoStream.loop = videoStream.autoplay = true;
+        const track = videoStream.addTextTrack("captions", "prompt");
+        track.mode = "showing";
+        const cue = new VTTCue(0.0, video.duration, `<c><b>${blob.type.split("=").pop().toUpperCase()}</b> Blob size: ${blob.size}</c>`)
+        cue.line = 0.45;
+        cue.size = 100;
+        track.addCue(cue);
+        document.body.appendChild(videoStream);
+        videoStream.src = URL.createObjectURL(blob);
+      }
+    })();
+  </script>
+</body>
+
+</html>

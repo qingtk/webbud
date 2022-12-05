@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+    <title>CSS Tabs</title>
+    
+    
+    <link rel="stylesheet" href="css/normalize.css">
+
+    
+        <style>
+      /* NOTE: The styles were added inline because Prefixfree needs access to your styles and they must be inlined if they are on local disk! */
+      @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
+
+body {
+  background: #FFEFD3;
+  font-family: "Open Sans", "Arial";
+}
+main {
+  background: #FFF;
+  width: 500px;
+  margin: 50px auto;
+  padding: 10px 30px 80px;
+  box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+}
+p {
+  font-size: 13px;
+}
+input, section {
+  clear: both;
+  padding-top: 10px;
+  display: none;
+}
+label {
+  font-weight: bold;
+  font-size: 14px;
+  display: block;
+  float: left;
+  padding: 10px 30px;
+  border-top: 2px solid transparent;
+  border-right: 1px solid transparent;
+  border-left: 1px solid transparent;
+  border-bottom: 1px solid #DDD;
+}
+label:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+#tab1:checked ~ #content1, #tab2:checked ~ #content2, #tab3:checked ~ #content3, #tab4:checked ~ #content4 {
+  display: block;
+}
+input:checked + label {
+  border-top-color: #FFB03D;
+  border-right-color: #DDD;
+  border-left-color: #DDD;
+  border-bottom-color: transparent;
+  text-decoration: none;
+}
+footer {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  font-size: 13px;
+  background: #DDD;
+  padding: 5px 10px;
+  margin: 5px;
+}
+/* suggestion from @charlie-volpe */
+hr {
+  position: relative;
+  top: 41px;
+  border: none;
+  border-bottom: 1px solid #DDD;
+}
+    </style>
+
+    
+  </head>
+
+  <body>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- auto -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-9506751992947371"
+     data-ad-slot="5600519289"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+    <main>
+  <h2>CSS Tabs</h2>
+  <input id="tab1" type="radio" name="tabs" checked>
+  <label for="tab1">Home</label>
+  <input id="tab2" type="radio" name="tabs">
+  <label for="tab2">Away</label>
+  <input id="tab3" type="radio" name="tabs">
+  <label for="tab3">Samples</label>
+  <input id="tab4" type="radio" name="tabs">
+  <label for="tab4">About</label>
+  <section id="content1">
+    <h3>Some Info</h3>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis adipiscing risus, porttitor viverra urna condimentum et. Donec vestibulum lacus vel dolor dictum pellentesque. Aliquam sodales sem quis urna condimentum, sit amet elementum magna semper.</p>
+  </section>
+  <section id="content2">
+    <h3>Something</h3>
+    <p>Aliquam condimentum hendrerit nisi, nec vestibulum mi feugiat ut. Donec lobortis nisi neque, in egestas eros venenatis eu. Vestibulum nulla nisi, venenatis at pretium id, fermentum quis risus. Quisque porta suscipit neque eu placerat. Etiam scelerisque, quam in sodales iaculis, velit velit mattis nunc, quis dapibus massa elit nec enim. Vivamus quis libero aliquam, volutpat nisl sed, consectetur ante. Donec aliquam semper felis, in placerat leo blandit in. Integer interdum elit quis felis tempor venenatis. In faucibus ac mauris id commodo. Proin in sapien tincidunt, luctus mi id, bibendum dui. Nunc tincidunt libero ut purus vehicula, sit amet tincidunt mi sollicitudin. Donec varius erat magna, sed convallis purus adipiscing ut. Duis sagittis ut leo ut auctor. Ut convallis nisl nec purus sollicitudin, nec iaculis felis rutrum. </p>
+  </section>
+  <section id="content3">
+    <h3>Heading Text</h3>
+    <p>Fusce pulvinar porttitor dui, eget ultrices nulla tincidunt vel. Suspendisse faucibus lacinia tellus, et viverra ligula. Suspendisse eget ipsum auctor, congue metus vel, dictum erat. Aenean tristique euismod molestie. Nulla rutrum accumsan nisl, ac semper sapien tincidunt et. Praesent tortor risus, commodo et sagittis nec, aliquam quis augue. Aenean non elit elementum, tempor metus at, aliquam felis.</p>
+  </section>
+  <section id="content4">
+    <h3>Here Are Many Words</h3>
+    <p>Vivamus convallis lectus lobortis dapibus ultricies. Sed fringilla vitae velit id rutrum. Maecenas metus felis, congue ut ante vitae, porta cursus risus. Nulla facilisi. Praesent vel ligula et erat euismod luctus. Etiam scelerisque placerat dapibus. Vivamus a mauris gravida urna mattis accumsan. Duis sagittis massa vel elit tincidunt, sed molestie lacus dictum. Mauris elementum, neque eu dapibus gravida, eros arcu euismod metus, vitae porttitor nibh elit at orci. Vestibulum laoreet id nulla sit amet mattis.</p>
+  </section>
+</main>
+<footer>
+  An original pen by <a href="http://codepen.io/ejsado/">Eric</a>.
+</footer>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+    
+    
+    
+    
+  </body>
+</html>

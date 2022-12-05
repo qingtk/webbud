@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>utf-8 sailing</title>
+	<meta name="author" content="a-boy">
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<style>
+textarea{
+	font-size:20pt;
+	width:100%;
+}
+#points{width:100%;}
+	</style>
+</head>
+<body>
+<input type="range" id="points" name="points" min="1" max="1114111" step="1"/><br>
+
+<textarea id='editor' rows=15></textarea>
+
+Range[<input type="text" id="start" name="start"  value="1">,<input type="text" name="max" id="max" value="10240">,<input type="text" name="step" id="step"  value="1">] <button>lookup</button><br>
+
+<script>
+function lookup(){
+	var a=[];
+	for(var i= +document.getElementById('start').value;i< +document.getElementById('max').value;i+= +document.getElementById('step').value)
+		a.push(i);
+
+	document.getElementById('editor').innerHTML=String.fromCodePoint.apply(null,a)
+}
+document.getElementsByTagName('button')[0].addEventListener('click', lookup);
+lookup();
+
+function show(){
+	var a=[];
+	for(var cursor= +document.getElementById('points').value,i=0;i< 1024;i++,cursor++)
+		a.push(cursor);
+
+	document.getElementById('editor').innerHTML=String.fromCodePoint.apply(null,a)
+}
+document.getElementById('points').addEventListener('change', show);
+</script>
+</body>
+</html>

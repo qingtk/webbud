@@ -1,0 +1,10 @@
+textarea, div#preview  {
+  display: inline-block;
+  width: 49%;
+  vertical-align: top;
+ 
+}
+
+code {
+  color: #f66;
+}

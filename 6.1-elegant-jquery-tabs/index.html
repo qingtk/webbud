@@ -1,0 +1,78 @@
+<html>
+<head>
+    <title>Tabs</title>
+    <meta charset="utf-8">  
+
+    <!-- stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- javascripts -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+</head>
+<body>
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- auto -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-9506751992947371"
+     data-ad-slot="5600519289"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+    <div class="tabs-container">
+        <ul class="tabs cf">
+            <li><a href="#first">لسان 1</a></li>
+            <li><a href="#second">لسان 2</a></li>
+            <li class="active"><a href="#third">لسان 3</a></li>
+            <li><a href="#fourth">لسان 4</a></li>
+        </ul>
+
+        <ul class="contents cf">
+            <li id="first">
+                <p>للمهتمين قمنا بوضع نص لوريم إبسوم القياسي والمُستخدم منذ القرن الخامس عشر في الأسفل. وتم أيضاً توفير الأقسام 1.10.32 و 1.10.33 من "حول أقاصي الخير والشر" (de Finibus Bonorum et Malorum) لمؤلفه شيشيرون (Cicero) بصيغها الأصلية، مرفقة بالنسخ الإنكليزية لها والتي قام بترجمتها هـ.راكهام (H. Rackham) في عام 1914.</p>
+            </li>
+            <li id="second">
+                <p>خلافاَ للإعتقاد السائد فإن لوريم إيبسوم ليس نصاَ عشوائياً، بل إن له جذور في الأدب اللاتيني الكلاسيكي منذ العام 45 قبل الميلاد، مما يجعله أكثر من 2000 عام في القدم. قام البروفيسور "ريتشارد ماك لينتوك" (Richard McClintock)</p>
+            </li>
+            <li id="third" class="active">
+                <p>هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما سيلهي القارئ عن التركيز على الشكل الخارجي للنص أو شكل توضع الفقرات في الصفحة التي يقرأها. ولذلك يتم استخدام طريقة لوريم إيبسوم لأنها تعطي توزيعاَ طبيعياَ &mdash;إلى حد ما &mdash; للأحرف عوضاً عن استخدام "هنا يوجد محتوى نصي، هنا يوجد محتوى نصي"</p>
+            </li>
+            <li id="fourth">
+                <p>هنالك العديد من الأنواع المتوفرة لنصوص لوريم إيبسوم، ولكن الغالبية تم تعديلها بشكل ما عبر إدخال بعض النوادر أو الكلمات العشوائية إلى النص. إن كنت تريد أن تستخدم نص لوريم إيبسوم ما، عليك أن تتحقق أولاً أن ليس هناك أي كلمات أو عبارات محرجة أو غير لائقة مخبأة في هذا النص. بينما تعمل جميع مولّدات نصوص لوريم إيبسوم على الإنترنت على إعادة تكرار مقاطع من نص لوريم إيبسوم نفسه عدة مرات بما تتطلبه الحاجة، يقوم مولّدنا هذا باستخدام كلمات من قاموس يحوي على أكثر من 200 كلمة لا تينية، مضاف إليها مجموعة من الجمل النموذجية، لتكوين نص لوريم إيبسوم ذو شكل منطقي قريب إلى النص الحقيقي. وبالتالي يكون النص الناتح خالي من التكرار، أو أي كلمات أو عبارات غير لائقة أو ما شابه. وهذا ما يجعله أول مولّد نص لوريم إيبسوم حقيقي على الإنترنت.</p>
+            </li>
+        </ul>
+    </div>
+	
+<script>
+	$(function () {
+    var container = $('.tabs-container'),
+        tabs      = container.find('.tabs li'),
+        links     = tabs.find('a'),
+        contents  = container.find('.contents li');
+
+    links.click(function (e) {
+        e.preventDefault();
+    });
+
+    tabs.on('click', function () {
+        var $this    = $(this),
+            $id      = $this.find('a').attr('href'),
+            $target  = container.find('.contents ' + $id);
+
+        if ($this.hasClass('active'))
+            return;
+
+        tabs.removeClass('active');
+        $this.addClass('active');
+
+        contents.removeClass('active').hide();
+        $target.fadeIn(500).addClass('active');
+    });
+});
+</script>
+</body>
+</html>
+   

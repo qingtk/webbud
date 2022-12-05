@@ -1,0 +1,106 @@
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    direction: rtl;
+    background: #333;
+    font: normal 16px/2em Tahoma, Arial, sans-serif;
+    color: #777;
+}
+
+.tabs-container {
+    width: 500px;
+    margin: 100px auto 0 auto;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.tabs-container .tabs,
+.tabs-container .contents {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.tabs-container .tabs li {
+    float: right;
+    display: block;
+    padding: 13px 17px;
+    background: #2a2a2a;
+    margin-left: 3px;
+    margin-top: 5px;
+    cursor: pointer;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+    -ms-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+}
+
+.tabs-container .tabs li:last-child { margin-right: 0; }
+
+.tabs-container .tabs li:hover {
+    background: #222;
+}
+
+.tabs-container .tabs li.active {
+    background: #fff;
+}
+
+.tabs-container .tabs li a {
+    text-decoration: none;
+    color: #666;
+}
+
+.tabs-container .tabs li.active a,
+.tabs-container .tabs li:hover a {
+    color: #888;
+}
+
+/* Tab Contents */
+
+.tabs-container .contents {
+    background: #fff;
+    padding: 15px;
+}
+
+.tabs-container .contents li {
+    display: none;
+}
+
+.tabs-container .contents li.active {
+    display: block;
+}
+
+/**
+ * For modern browsers
+ * 1. The space content is one way to avoid an Opera bug when the
+ *    contenteditable attribute is included anywhere else in the document.
+ *    Otherwise it causes space to appear at the top and bottom of elements
+ *    that are clearfixed.
+ * 2. The use of `table` rather than `block` is only necessary if using
+ *    `:before` to contain the top-margins of child elements.
+ */
+.cf:before,
+.cf:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.cf:after {
+    clear: both;
+}
+
+/**
+ * For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats.
+ */
+.cf {
+    *zoom: 1;
+}

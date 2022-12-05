@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>pseudo elements</title>
+  <style type="text/css">
+a::before {
+  content: "♥";
+  color: #f20;
+}
+q::before { 
+  content: "«";
+  color: blue;
+}
+q::after { 
+  content: "»";
+  color: red;
+}
+li {
+  list-style-type: none;
+  position: relative;
+  margin: 2px;
+  padding: 0.5em 0.5em 0.5em 2em;
+  background: lightgrey;
+  font-family: sans-serif;
+}
+
+li.done {
+  background: #CCFF99;
+}
+
+li.done::before {
+  content: '';
+  position: absolute;
+  border-color: #009933;
+  border-style: solid;
+  border-width: 0 0.3em 0.25em 0;
+  height: 1em;
+  width: 0.5em;
+  top: 1.3em;
+  left: 0.6em;
+  margin-top: -1em;
+  transform: rotate(45deg);  
+}
+/*选中的是绿色背景，白色字体*/
+::selection {
+  color: white;
+  background-color: green;
+}
+  </style>
+</head>
+<body>
+<a href="http://2293.ml">2293.ml</a>
+<p><q>一些引用</q>, 他说, <q>比没有好。</q></p>
+
+<div>
+<ul>
+  <li>Buy milk</li>
+  <li>Take a walk</li>
+  <li>Do Exercise</li>
+  <li>Write code</li>
+  <li>Play music</li>
+  <li>Relax</li>
+</ul>
+</div>
+<script>
+var ul1 = document.querySelector('ul');
+ul1.addEventListener('click', function(ev) {
+  if( ev.target.tagName === 'LI') {
+     ev.target.classList.toggle('done'); 
+  }
+}, false);
+</script>
+<p>注意: 由::before 和::after 生成的伪元素 包含在元素格式框内， 因此不能应用在替换元素上， 比如&lt;img&gt;或&lt;br&gt; 元素。</p>
+</body>
+</html>

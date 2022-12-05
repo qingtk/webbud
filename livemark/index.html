@@ -1,0 +1,134 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="by" content="a boy">
+  <title>LiveMark</title>
+  <script>function _(id){return document.getElementById(id);}</script>
+	<script src="marked.js"></script>
+<style>
+iframe,div{float:left}
+
+</style>
+</head>
+
+<body>
+LiveMark  <input type="text" name=""/>  <span id="timebar"></span>
+<script>setInterval(()=>document.getElementById("timebar").innerHTML=new Date().toISOString()/*.slice(10,19)*/,10000) </script><br>
+<iframe id="frame1" src="" width="600" height="500"></iframe>
+<div id="toolbar1"><a>&nbsp;</a><a>----</a><button>> </button><button></button><input type="text" name="tag1"></div>
+<textarea name="editor1" id="editor1" rows="25" cols="50" onblur="_('frame1').src ='data:text/html;charset=utf-8,'+marked(this.value)">
+  迷
+====
+
+- q
+- w
+
+This is [an example](http://example.com/ "Title") inline link.
+
+Someone get 10 times more traffic from [Google] [1] than from
+[Yahoo] [2] or [MSN] [3].
+
+  [1]: http://google.com/        "Google"
+  [2]: http://search.yahoo.com/  "Yahoo Search"
+  [3]: http://search.msn.com/    "MSN Search"
+
+> block indent
+
+
+This is H1
+====
+
+This is H2
+----
+
+### This is H3
+
+###### 这是 H6
+
+区块引用 可只在整个段落的第一行最前面加上 > ,可以嵌套
+> This is the first level of quoting.
+>
+> > This is nested blockquote.
+>
+> Back to the first level
+
+无序列表 使用星号、加号或是减号作为列表标记：
+-   Red
+-   Green
+-   Blue
+
+有序列表 使用数字接着一个英文句点：
+1.  tiger
+2.  lion
+
+分隔线 可以在一行中用三个以上的星号、减号、底线
+- - -
+
+行内代码，你可以用反引号把它包起来，例如：Use the `printf()` function.
+
+代码区块 上下3个反引号
+Here is an example of AppleScript:
+
+```
+    tell application "Foo"
+        beep
+    end tell
+```
+
+Here is an image ![primes in a lattice](http://avvboy.tk/images/p13X19-green.png "primes in 13X19")
+
+标记强调字词的符号
+  *em* **strong** _em_ __strong__
+如果要在文字前后直接插入普通的星号或底线，你可以用反斜线：
+\*this text is surrounded by literal asterisks\*
+
+### Table
+**Markdown Extra** has a special syntax for tables:
+You can specify column alignment with one or two colons:
+
+| Item     | Value | Qty   |
+| :------- | ----: | :---: |
+| Computer | $1600 |  5    |
+| Phone    | $12   |  12   |
+| Pipe     | $1    |  234  |
+
+### Footnote
+You can create footnotes like this[^footnote1].
+
+  [^footnote1]: Here is the *text* of the **footnote**.
+
+
+### Table of contents
+
+You can insert a table of contents using the marker `[TOC]`:
+
+[TOC]
+
+
+### MathJax
+
+### UML diagrams
+You can also render sequence diagrams like this:
+
+```sequence
+Alice->Bob: Hello Bob, how are you?
+Note right of Bob: Bob thinks
+Bob-->Alice: I am good thanks!
+```
+
+### 
+</textarea>
+<br><button onclick="_('frame1').src ='data:text/html;charset=utf-8,'+marked(_('editor1').value)">Preview</button>
+<br>----<br>
+<textarea name="sed" id="sed" rows="6" cols="80"> prompt(temp=marked(window.getSelection().toString()),temp)</textarea> <button onclick="eval(_('sed').value)">eval</button>
+
+<script>_('frame1').src ='data:text/html;charset=utf-8,'+marked(_('editor1').value)</script>
+<footer>
+ <hr>
+    <span style="color:#0f0;"><u>LiveMark</u></span> -  by a boy @2017-07-04 <br>
+</footer>
+</body>
+</html>

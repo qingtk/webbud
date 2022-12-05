@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>play velocity.js</title>
+<meta name="by" content="a boy">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<script src="js/velocity.min.js"></script>
+</head>
+
+<body>
+<div>☀☁☂☃☄★☆☇☈☉☊☋☌☍</div>
+<span>☼☽☾☿♀♁♂</span>
+<p>♔♕♖♗♘♙♚♛♜♝♞♟♠♡♢♣♤♥♦♧♨</p>
+<blockquote>♩♪♫♬♭♮♯    ⚀⚁⚂⚃⚄⚅⚆⚇    ⚡⚳⚴⚵⚶⚷⚸⚹⚺⚻⚼⚽⚾⚿        ⛬⛭⛮⛯⛰⛱⛲⛳⛴⛵⛶⛷⛸⛹⛺⛻⛼⛽⛾⛿✀✁✂✃✄✅✆✇✈✉✊✋✌✍</blockquote>
+</body>
+<script>
+var v=Velocity;
+var el=document.querySelector('div');
+v(el,{ rotateY: "360deg" }, 1000)
+v(el,{color: "#d0c" }, 1000)
+v(el,{height: "*=2" }, 5000, "swing")
+
+Velocity(document.querySelector('p'), { opacity: 0.5 });
+
+el=document.querySelector('blockquote');
+v(el,{rorateZ:"+=10deg",color:"#0f0"},{loop:100})
+</script>
+<textarea>
+</textarea>
+<script>document.getElementsByTagName('textarea')[0].value = document.getElementsByTagName('script')[1].innerHTML;</script>
+请打开浏览器控制台，进行实验……
+</html>
