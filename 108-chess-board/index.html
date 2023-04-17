@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>国际象棋棋盘布局</title>
+    <style>
+        .board {
+            display: flex;
+            flex-wrap: wrap;
+            width: 400px;
+            height: 400px;
+        }
+        .square {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+        }
+        .white {
+            background-color: #F0D9B5;
+        }
+        .black {
+            background-color: #B58863;
+            color: #FFFFFF;
+        }
+        .piece {
+            font-family: Arial, sans-serif;
+            font-size: 40px;
+            cursor: pointer;
+            user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            -moz-user-select: none;
+        }
+        .piece img {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="board"></div>
+    <script>
+        var board = document.querySelector('.board');
+        var isWhite = true;
+        var pieces = {
+            'rook': '&#9814;',
+            'knight': '&#9816;',
+            'bishop': '&#9815;',
+            'queen': '&#9813;',
+            'king': '&#9812;',
+            'pawn': '&#9817;'
+        };
+        var positions = [
+            ['rook', 'knight', 'bishop', 'queen', 'king', 'bishop', 'knight', 'rook'],
+            ['pawn', 'pawn', 'pawn', 'pawn', 'pawn', 'pawn', 'pawn', 'pawn'],
+            ['', '', '', '', '', '', '', ''],
+            ['', '', '', '', '', '', '', ''],
+            ['', '', '', '', '', '', '', ''],
+            ['', '', '', '', '', '', '', ''],
+            ['pawn', 'pawn', 'pawn', 'pawn', 'pawn', 'pawn', 'pawn', 'pawn'],
+            ['rook', 'knight', 'bishop', 'queen', 'king', 'bishop', 'knight', 'rook']
+        ];
+        for (var i = 0; i < 64; i++) {
+            var square = document.createElement('div');
+            square.className = 'square';
+            if (isWhite) {
+                square.classList.add('white');
+            } else {
+                square.classList.add('black');
+            }
+            var x = i % 8;
+            var y = Math.floor(i / 8);
+            var piece = positions[y][x];
+            if (piece) {
+                var pieceEl = document.createElement('div');
+                pieceEl.innerHTML = pieces[piece];
+                pieceEl.className = 'piece';
+                if (piece.charAt(0) === 'w') {
+                    pieceEl.classList.add('white-piece');
+                } else {
+                    pieceEl.classList.add('black-piece');
+                }
+                square.appendChild(pieceEl);
+            }
+            board.appendChild(square);
+            isWhite = !isWhite;
+            if (x === 7) {
+                isWhite = !isWhite;
+            }
+        }
+    </script>
+</body>
+</html>
