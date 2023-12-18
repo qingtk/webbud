@@ -1,0 +1,79 @@
+<script src="https://unpkg.com/alpinejs" defer></script>
+ 
+<div x-data="{ open: false }">
+    <button @click="open = ! open">Toggle</button>
+ 
+    <div x-show="open" @click.outside="open = false">Contents...</div>
+</div>
+
+<div x-data="{ count: 0 }">
+    <button x-on:click="count++">Increment</button>
+ 
+    <span x-text="count"></span>
+</div>
+
+<div
+    x-data="{
+        search: '',
+ 
+        items: ['foo', 'bar', 'baz'],
+ 
+        get filteredItems() {
+            return this.items.filter(
+                i => i.startsWith(this.search)
+            )
+        }
+    }"
+>
+    <input x-model="search" placeholder="Search...">
+ 
+    <ul>
+        <template x-for="item in filteredItems" :key="item">
+            <li x-text="item"></li>
+        </template>
+    </ul>
+</div>
+<textarea>
+Directives
+x-data
+x-init
+x-show
+x-bind
+x-on
+x-text
+x-html
+x-model
+x-modelable
+x-for
+x-transition
+x-effect
+x-ignore
+x-ref
+x-cloak
+x-teleport
+x-if
+x-id
+Magics
+$el
+$refs
+$store
+$watch
+$dispatch
+$nextTick
+$root
+$data
+$id
+Globals
+Alpine.data()
+Alpine.store()
+Alpine.bind()
+
+Plugins
+Mask
+Intersect
+Persist
+Focus
+Collapse
+Anchor
+Morph
+</textarea>
