@@ -1,0 +1,44 @@
+<html>
+  <head>
+    <title>GeminiPro</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+  </head>
+
+  <body>
+    <script type="importmap">
+      {
+        "imports": {
+          "@google/generative-ai": "https://esm.run/@google/generative-ai"
+        }
+      }
+    </script>
+    <script type="module">
+      import { GoogleGenerativeAI } from "@google/generative-ai";
+
+      // Fetch your API_KEY
+      const API_KEY = "AIzaSyDA1CRVXvw3zTg0yiaOq4QoWOJoAkp8zbc";
+
+      // Access your API key (see "Set up your API key" above)
+      const genAI = new GoogleGenerativeAI(API_KEY);
+
+      async function p(prompt) {
+        // For text-only input, use the gemini-pro model
+        const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+
+        const pr = prompt || "Write a story about a magic backpack.";
+
+        const result = await model.generateContent(pr);
+        const response = await result.response;
+        const text = response.text();
+        console.log(text);
+      }
+      window.p = p;
+      p();
+    </script>
+  </body>
+  <p>
+    在控制台中输入诸如： p('如何理解javascript中的module?') <br />
+    p('tomato vs potato')<br />
+  </p>
+</html>
