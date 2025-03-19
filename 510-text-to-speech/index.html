@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Text to Speech Example</title>
+</head>
+<body>
+<textarea id="textInput" rows="4" cols="50" placeholder="Type something...">
+The Web Speech API provides functionality for speech synthesis (text-to-speech) in JavaScript. This allows you to convert text into spoken words, making your web applications more accessible and engaging.   
+</textarea><br>
+<button onclick="speak()">Speak</button>
+<script>
+function speak() {
+const text = document.getElementById('textInput').value;
+const utterance = new SpeechSynthesisUtterance(text);
+window.speechSynthesis.speak(utterance);
+}
+</script>
+</body>
+</html>
