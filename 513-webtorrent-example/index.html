@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>moovie.js - webtorrent.js  integration example</title>
+  <link rel='stylesheet' href='https://cdn.jsdelivr.net/gh/BMSVieira/moovie.js@latest/css/moovie.min.css'>
+<link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css'>
+<link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Montserrat:wght@100&amp;display=swap'><link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div style='max-width: 900px; position: relative; margin: 0 auto; margin-top: 0px; margin-top: 0px; margin-top: 43px; text-align:center;'>
+              <img src="https://raw.githubusercontent.com/BMSVieira/moovie.js/main/demo-template/images/moovie_white.png" style="max-width: 214px;">
+              <p style="margin-bottom: 49px; font-size: 28pt; color: white; font-family: Montserrat;">webtorrent.js integration example</p>
+            </div>      
+
+<div style='max-width: 800px; position: relative; margin: 0 auto; margin-top: 0px; margin-top: 64px;'>
+          <video id="example" autoplay="false">
+
+              <track kind="captions" label="Portuguese" srclang="pt" src="https://raw.githubusercontent.com/BMSVieira/moovie.js/main/demo-template/subtitles/pt.vtt">
+              <track kind="captions" label="English" srclang="en" src="https://raw.githubusercontent.com/BMSVieira/moovie.js/main/demo-template/subtitles/en.vtt">
+              <track kind="captions" label="French" srclang="en" src="https://raw.githubusercontent.com/BMSVieira/moovie.js/main/demo-template/subtitles/french.srt">
+              Your browser does not support the video tag.
+          </video>
+      </div>
+<!-- partial -->
+  <script src='https://cdn.jsdelivr.net/gh/BMSVieira/moovie.js@latest/js/moovie.min.js'></script>
+<script src='https://cdn.jsdelivr.net/webtorrent/latest/webtorrent.min.js'></script><script  src="./script.js"></script>
+
+</body>
+</html>
