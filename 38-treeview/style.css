@@ -1,0 +1,60 @@
+/* Basic Tree Styling */
+#tree-container ul {
+    list-style-type: none; /* Remove default bullets */
+    padding-left: 20px;    /* Indentation for nested levels */
+    margin: 5px 0;         /* Spacing between levels */
+}
+
+#tree-container li {
+    position: relative;   /* Needed for positioning the toggle icon */
+    padding: 3px 0;       /* Spacing for items */
+}
+
+/* Toggle Icon Styling (+/- or similar) */
+.toggle {
+    cursor: pointer;
+    display: inline-block;
+    width: 15px;          /* Fixed width for alignment */
+    text-align: center;
+    margin-right: 5px;
+    font-family: monospace; /* Ensure + and - look consistent */
+    font-weight: bold;
+    color: #666;
+    user-select: none; /* Prevent text selection on click */
+}
+
+/* Style for nodes *with* children */
+.tree-node.has-children > .node-content > .toggle::before {
+    content: '+'; /* Default state: collapsed */
+}
+
+/* Style for nodes that are *expanded* */
+.tree-node.expanded > .node-content > .toggle::before {
+    content: '-'; /* Expanded state */
+}
+
+/* Initially hide children of collapsed nodes */
+.tree-node > ul {
+    display: none;
+}
+
+/* Show children of expanded nodes */
+.tree-node.expanded > ul {
+    display: block;
+}
+
+/* Node Label Styling */
+.node-label {
+    cursor: default; /* Or 'pointer' if clicking the label does something */
+}
+
+/* Add a hover effect for better UX (optional) */
+.node-content:hover {
+    background-color: #eee;
+}
+
+/* Container for toggle and label for better layout */
+.node-content {
+    display: flex;
+    align-items: center;
+}
