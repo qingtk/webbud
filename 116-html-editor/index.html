@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple HTML Editor</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Optional: Add an icon library like Font Awesome for better button icons -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> -->
+</head>
+<body>
+    <!-- <h4>Simple HTML Editor</h4> -->
+
+    <div class="editor-container">
+        <div class="toolbar" id="toolbar">
+            <!-- Formatting Buttons -->
+            <button data-command="bold" title="Bold"><b>B</b></button>
+            <button data-command="italic" title="Italic"><i>I</i></button>
+            <button data-command="underline" title="Underline"><u>U</u></button>
+            <button data-command="strikeThrough" title="Strikethrough"><s>S</s></button>
+            <button data-command="justifyLeft" title="Align Left">Left</button>
+            <button data-command="justifyCenter" title="Align Center">Center</button>
+            <button data-command="justifyRight" title="Align Right">Right</button>
+            <button data-command="justifyFull" title="Justify">Justify</button>
+            <button data-command="insertUnorderedList" title="Unordered List">• List</button>
+            <button data-command="insertOrderedList" title="Ordered List">1. List</button>
+            <button data-command="createLink" title="Insert Link">Link</button>
+            <button data-command="unlink" title="Remove Link">Unlink</button>
+             <select data-command="formatBlock" title="Heading/Paragraph">
+                <option value="p">Paragraph</option>
+                <option value="h1">Heading 1</option>
+                <option value="h2">Heading 2</option>
+                <option value="h3">Heading 3</option>
+                <option value="h4">Heading 4</option>
+                <option value="blockquote">Blockquote</option>
+            </select>
+            <button data-command="undo" title="Undo">Undo</button>
+            <button data-command="redo" title="Redo">Redo</button>
+            <!-- Add more buttons as needed: font size, color, image insert (more complex) -->
+        </div>
+
+        <div id="editor" class="editor-area" contenteditable="true" spellcheck="false">
+            <p>Start typing here...</p>
+        </div>
+
+        <div class="output-area">
+            <button id="show-html-btn">Show HTML Source</button>
+            <pre><code id="html-output"></code></pre>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
