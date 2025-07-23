@@ -1,0 +1,14 @@
+<svg id="walk1" viewBox="0 0 100 100" width="200" xmlns="http://www.w3.org/2000/svg">
+  <!-- A rx ry x-axis-rotation large-arc-flag sweep-flag x y
+      a rx ry x-axis-rotation large-arc-flag sweep-flag dx dy -->   
+  <path d="M 10 10
+   A 3 5 -45 0 1 50 50
+   M 10 10
+   A 3 5 -45 0 0 50 50" 
+   stroke="black" fill="green" stroke-width="2" fill-opacity="0.5"/>
+
+   <path id="b" fill="#007fff" fill-opacity="1" fill-rule="evenodd" stroke="#000070" stroke-dasharray="none" stroke-dashoffset="0" stroke-miterlimit="4" stroke-opacity="1" stroke-width="3.75001814" 
+d="M51 30 
+  a19.30 19.30 0 1 1 -38.60 0 
+  19.30 19.30 0 1 1 38.60 0z"/>
+</svg>

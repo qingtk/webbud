@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Markdown 编辑器</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      height: 100vh;
+    }
+    #editor, #preview {
+      width: 50%;
+      padding: 10px;
+      box-sizing: border-box;
+      font-size: 16px;
+      overflow-y: auto;
+    }
+    #editor {
+      border-right: 1px solid #ccc;
+    }
+    #preview {
+      background: #f9f9f9;
+    }
+    pre code {
+      background: #eee;
+      padding: 10px;
+      display: block;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+  <textarea id="editor" placeholder="输入 Markdown 内容..."># 你好，Markdown 编辑器！
+- 支持实时预览
+- 支持代码高亮
+- 支持基本 Markdown 语法</textarea>
+  <div id="preview"></div>
+
+  <!-- Marked.js 用于解析 Markdown -->
+  <script src="https://unpkg.com/marked"></script>
+  <!-- Highlight.js 用于代码高亮 -->
+  <script src="https://unpkg.com/highlightjs"></script>
+  <link rel="stylesheet" href="https://unpkg.com/highlightjs/styles/github.css">
+
+  <script>
+    const editor = document.getElementById('editor');
+    const preview = document.getElementById('preview');
+
+    // 初始化预览
+    function updatePreview() {
+      const markdownText = editor.value;
+      const htmlContent = marked.parse(markdownText);
+      preview.innerHTML = htmlContent;
+
+      // 代码高亮
+      hljs.highlightAll();
+    }
+
+    // 监听输入事件，实时更新预览
+    editor.addEventListener('input', updatePreview);
+
+    // 初始渲染
+    updatePreview();
+
+    // 同步滚动功能（可选）
+    editor.addEventListener('scroll', () => {
+      preview.scrollTop = editor.scrollTop;
+    });
+
+    preview.addEventListener('scroll', () => {
+      editor.scrollTop = preview.scrollTop;
+    });
+  </script>
+</body>
+</html>

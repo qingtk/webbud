@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="380" viewBox="0 0 10 10">
+<title>Pick's theorem example with a hole</title>
+<style>
+.int { stroke: black; fill: black; }
+
+</style>
+<defs>
+<g id="node">
+<rect x="-3" y="-3" width="6" height="6"/>
+</g>
+</defs>
+<rect width="100%" height="100%" fill="white"/>
+<g transform="translate(20,20) scale(40)">
+<polygon class="poly" points="2,1 8,1 8,2 9,2 9,5 8,5 8,6 2,6 2,5 1,5 1,2 2,2"/>
+<polygon class="poly" points="3,3 3,4 7,4 7,3"/>
+<g class="int">
+<use href="#node" x="2" y="2"/> <use href="#node" x="3" an="2"/> <use href="#node" x="4" y="2"/> <use href="#node" x="5" y="2"/> <use href="#node" x="6" y="2"/> <use href="#node" x="7" y="2"/>
+<use href="#node" x="2" y="5"/> <use href="#node" x="3" an="5"/> <use href="#node" x="4" y="5"/> <use href="#node" x="5" y="5"/> <use href="#node" x="6" y="5"/> <use href="#node" x="7" y="5"/>
+</g>
+<g class="bound">
+<use href="#node" x="1" y="2"/> <use href="#node" x="1" y="3"/> <use href="#node" x="1" y="4"/> <use href="#node" x="1" y="5"/>
+<use href="#node" x="2" y="1"/> <use href="#node" x="2" y="2"/> <use href="#node" x="2" y="5"/> <use href="#node" x="2" y="6"/>
+<use href="#node" x="3" y="1"/> <use href="#node" x="3" y="3"/> <use href="#node" x="3" y="4"/> <use href="#node" x="3" y="6"/>
+<use href="#node" x="4" y="1"/> <use href="#node" x="4" y="3"/> <use href="#node" x="4" y="4"/> <use href="#node" x="4" y="6"/>
+<use href="#node" x="5" y="1"/> <use href="#node" x="5" y="3"/> <use href="#node" x="5" y="4"/> <use href="#node" x="5" y="6"/>
+<use href="#node" x="6" y="1"/> <use href="#node" x="6" y="3"/> <use href="#node" x="6" y="4"/> <use href="#node" x="6" y="6"/>
+<use href="#node" x="7" y="1"/> <use href="#node" x="7" y="3"/> <use href="#node" x="7" y="4"/> <use href="#node" x="7" y="6"/>
+<use href="#node" x="8" y="1"/> <use href="#node" x="8" y="2"/> <use href="#node" x="8" y="5"/> <use href="#node" x="8" y="6"/>
+<use href="#node" x="9" y="2"/> <use href="#node" x="9" y="3"/> <use href="#node" x="9" y="4"/> <use href="#node" x="9" y="5"/>
+</g>
+</g>
+</svg>

@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown编辑器</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: #f8fafc;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        .panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        .header {
+            padding: 16px 20px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header h2 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .toolbar button {
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #334155;
+        }
+
+        .toolbar button:hover {
+            background: #e2e8f0;
+            transform: translateY(-1px);
+        }
+
+        .toolbar button.active {
+            background: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+        }
+
+        .editor-container, .preview-container {
+            flex: 1;
+            overflow: auto;
+            padding: 20px;
+        }
+
+        #editor {
+            width: 100%;
+            height: 100%;
+            border: none;
+            resize: none;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #334155;
+            outline: none;
+            background: transparent;
+        }
+
+        #preview {
+            height: 100%;
+            overflow-y: auto;
+            color: #334155;
+            line-height: 1.6;
+        }
+
+        #preview h1 {
+            font-size: 2em;
+            margin: 0.67em 0;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 0.3em;
+        }
+
+        #preview h2 {
+            font-size: 1.5em;
+            margin: 0.83em 0;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 0.3em;
+        }
+
+        #preview h3 {
+            font-size: 1.17em;
+            margin: 1em 0;
+        }
+
+        #preview p {
+            margin: 1em 0;
+        }
+
+        #preview a {
+            color: #3b82f6;
+            text-decoration: none;
+        }
+
+        #preview a:hover {
+            text-decoration: underline;
+        }
+
+        #preview code {
+            background-color: #f1f5f9;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.85em;
+        }
+
+        #preview pre {
+            background-color: #1e293b;
+            color: #f8fafc;
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1em 0;
+        }
+
+        #preview pre code {
+            background: none;
+            padding: 0;
+            color: inherit;
+        }
+
+        #preview blockquote {
+            border-left: 4px solid #cbd5e1;
+            padding-left: 16px;
+            margin: 1em 0;
+            color: #64748b;
+        }
+
+        #preview ul, #preview ol {
+            margin: 1em 0;
+            padding-left: 32px;
+        }
+
+        #preview li {
+            margin: 0.5em 0;
+        }
+
+        #preview table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1em 0;
+        }
+
+        #preview th, #preview td {
+            border: 1px solid #cbd5e1;
+            padding: 8px 12px;
+            text-align: left;
+        }
+
+        #preview th {
+            background-color: #f1f5f9;
+            font-weight: 600;
+        }
+
+        #preview tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        #preview img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin: 1em 0;
+        }
+
+        #preview hr {
+            border: none;
+            border-top: 1px solid #e2e8f0;
+            margin: 2em 0;
+        }
+
+        .status-bar {
+            padding: 12px 20px;
+            border-top: 1px solid #e2e8f0;
+            background: #f8fafc;
+            font-size: 14px;
+            color: #64748b;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                padding: 10px;
+            }
+            
+            .panel {
+                min-height: 40vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="panel">
+            <div class="header">
+                <h2>编辑器</h2>
+                <div class="toolbar">
+                    <button id="bold-btn" title="粗体 (Ctrl+B)">𝐁</button>
+                    <button id="italic-btn" title="斜体 (Ctrl+I)">𝐼</button>
+                    <button id="heading-btn" title="标题">H</button>
+                    <button id="link-btn" title="链接">🔗</button>
+                    <button id="code-btn" title="代码"></></button>
+                    <button id="quote-btn" title="引用">❝</button>
+                    <button id="list-ul-btn" title="无序列表">•</button>
+                    <button id="list-ol-btn" title="有序列表">1.</button>
+                </div>
+            </div>
+            <div class="editor-container">
+                <textarea id="editor" placeholder="在这里输入Markdown内容..."># 欢迎使用Markdown编辑器
+
+这是一个实时预览的Markdown编辑器，支持常用的Markdown语法。
+
+## 功能特性
+
+- **实时预览** - 编辑时即时查看效果
+- **快捷键支持** - 提高编辑效率
+- **语法高亮** - 代码块美观显示
+- **响应式设计** - 支持移动端使用
+
+### 示例语法
+
+1. **粗体文本**: `**粗体**`
+2. *斜体文本*: `*斜体*`
+3. [链接](https://example.com)
+4. `行内代码`
+5. 代码块:
+```javascript
+function hello() {
+    console.log("Hello, World!");
+}
+```
+<button>go go go!</button>
+
+</textarea>
+</div>
+<div class="status-bar">
+<span>字符数: <span id="char-count">0</span></span>
+<span>行数: <span id="line-count">0</span></span>
+</div>
+</div>
+    <div class="panel">
+        <div class="header">
+            <h2>预览</h2>
+        </div>
+        <div class="preview-container">
+            <div id="preview"></div>
+        </div>
+        <div class="status-bar">
+            <span>渲染完成</span>
+            <span id="render-time">0ms</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    class MarkdownEditor {
+        constructor() {
+            this.editor = document.getElementById('editor');
+            this.preview = document.getElementById('preview');
+            this.init();
+        }
+
+        init() {
+            // 绑定事件
+            this.editor.addEventListener('input', () => this.updatePreview());
+            this.editor.addEventListener('keydown', (e) => this.handleKeyDown(e));
+            
+            // 绑定工具栏按钮事件
+            document.getElementById('bold-btn').addEventListener('click', () => this.insertFormatting('**'));
+            document.getElementById('italic-btn').addEventListener('click', () => this.insertFormatting('*'));
+            document.getElementById('heading-btn').addEventListener('click', () => this.insertHeading());
+            document.getElementById('link-btn').addEventListener('click', () => this.insertLink());
+            document.getElementById('code-btn').addEventListener('click', () => this.insertCode());
+            document.getElementById('quote-btn').addEventListener('click', () => this.insertQuote());
+            document.getElementById('list-ul-btn').addEventListener('click', () => this.insertList('ul'));
+            document.getElementById('list-ol-btn').addEventListener('click', () => this.insertList('ol'));
+
+            // 初始化统计
+            this.updateStats();
+            this.editor.addEventListener('input', () => this.updateStats());
+
+            // 首次渲染
+            this.updatePreview();
+        }
+
+        updatePreview() {
+            const startTime = performance.now();
+            const markdown = this.editor.value;
+            this.preview.innerHTML = this.parseMarkdown(markdown);
+            const endTime = performance.now();
+            document.getElementById('render-time').textContent = `${(endTime - startTime).toFixed(2)}ms`;
+        }
+
+        parseMarkdown(text) {
+            let html = text;
+
+            // 代码块 (```code```)
+            html = html.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
+            
+            // 行内代码 (`code`)
+            html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+            
+            // 引用块 (> quote)
+            html = html.replace(/^> (.*)$/gm, '<blockquote>$1</blockquote>');
+            
+            // 水平线
+            html = html.replace(/^---$/gm, '<hr>');
+            
+            // 标题 (# H1, ## H2, ### H3)
+            html = html.replace(/^### (.*$)/gm, '<h3>$1</h3>');
+            html = html.replace(/^## (.*$)/gm, '<h2>$1</h2>');
+            html = html.replace(/^# (.*$)/gm, '<h1>$1</h1>');
+            
+            // 无序列表
+            html = html.replace(/^\* (.*)$/gm, '<li>$1</li>');
+            html = html.replace(/(<li>.*<\/li>)/gs, '<ul>$1</ul>');
+            
+            // 有序列表
+            html = html.replace(/^\d+\. (.*)$/gm, '<li>$1</li>');
+            html = html.replace(/(<li>.*<\/li>)/gs, '<ol>$1</ol>');
+            
+            // 链接 [text](url)
+            html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+            
+            // 图片 ![alt](url)
+            html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1">');
+            
+            // 粗体 (**text**)
+            html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            
+            // 斜体 (*text*)
+            html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+            
+            // 段落
+            html = html.replace(/^\s*$(?:\n)?/gm, '</p><p>');
+            html = '<p>' + html + '</p>';
+            html = html.replace(/<p><\/p>/g, '');
+            
+            // 表格
+            html = html.replace(/\|(.+)\|$\n\|[-\s|]+\|$\n((?:\|.*\|$\n?)*)/gm, (match, headers, rows) => {
+                let table = '<table><thead><tr>';
+                headers.split('|').forEach(header => {
+                    if (header.trim()) {
+                        table += `<th>${header.trim()}</th>`;
+                    }
+                });
+                table += '</tr></thead><tbody>';
+                
+                rows.split('\n').forEach(row => {
+                    if (row.trim()) {
+                        table += '<tr>';
+                        row.split('|').forEach(cell => {
+                            if (cell.trim()) {
+                                table += `<td>${cell.trim()}</td>`;
+                            }
+                        });
+                        table += '</tr>';
+                    }
+                });
+                
+                table += '</tbody></table>';
+                return table;
+            });
+
+            return html;
+        }
+
+        handleKeyDown(e) {
+            // 快捷键支持
+            if (e.ctrlKey || e.metaKey) {
+                switch (e.key) {
+                    case 'b':
+                        e.preventDefault();
+                        this.insertFormatting('**');
+                        break;
+                    case 'i':
+                        e.preventDefault();
+                        this.insertFormatting('*');
+                        break;
+                }
+            }
+        }
+
+        insertFormatting(symbol) {
+            const start = this.editor.selectionStart;
+            const end = this.editor.selectionEnd;
+            const selectedText = this.editor.value.substring(start, end);
+            const replacement = `${symbol}${selectedText}${symbol}`;
+            
+            this.editor.value = this.editor.value.substring(0, start) + replacement + this.editor.value.substring(end);
+            this.editor.selectionStart = start + symbol.length;
+            this.editor.selectionEnd = start + symbol.length + selectedText.length;
+            this.editor.focus();
+            this.updatePreview();
+        }
+
+        insertHeading() {
+            const start = this.editor.selectionStart;
+            const lineStart = this.editor.value.lastIndexOf('\n', start - 1) + 1;
+            const line = this.editor.value.substring(lineStart, start);
+            
+            if (line.startsWith('#')) {
+                const level = line.match(/^#+/)[0].length;
+                const newLevel = level >= 3 ? 1 : level + 1;
+                const newHeading = '#'.repeat(newLevel) + ' ' + line.replace(/^#+\s*/, '');
+                this.editor.value = this.editor.value.substring(0, lineStart) + newHeading + this.editor.value.substring(start);
+            } else {
+                this.editor.value = this.editor.value.substring(0, lineStart) + '# ' + this.editor.value.substring(lineStart);
+            }
+            
+            this.editor.focus();
+            this.updatePreview();
+        }
+
+        insertLink() {
+            const start = this.editor.selectionStart;
+            const end = this.editor.selectionEnd;
+            const selectedText = this.editor.value.substring(start, end);
+            const replacement = selectedText ? `[${selectedText}](url)` : `[链接文本](https://)`;
+            
+            this.editor.value = this.editor.value.substring(0, start) + replacement + this.editor.value.substring(end);
+            this.editor.selectionStart = start + replacement.indexOf('(url)') + 1;
+            this.editor.selectionEnd = start + replacement.indexOf('(url)') + 4;
+            this.editor.focus();
+            this.updatePreview();
+        }
+
+        insertCode() {
+            const start = this.editor.selectionStart;
+            const end = this.editor.selectionEnd;
+            const selectedText = this.editor.value.substring(start, end);
+            const replacement = selectedText ? `\`\`\`\n${selectedText}\n\`\`\`` : '```\n代码内容\n```';
+            
+            this.editor.value = this.editor.value.substring(0, start) + replacement + this.editor.value.substring(end);
+            this.editor.focus();
+            this.updatePreview();
+        }
+
+        insertQuote() {
+            const start = this.editor.selectionStart;
+            const lineStart = this.editor.value.lastIndexOf('\n', start - 1) + 1;
+            const line = this.editor.value.substring(lineStart, start);
+            
+            if (line.startsWith('> ')) {
+                this.editor.value = this.editor.value.substring(0, lineStart) + line.substring(2) + this.editor.value.substring(start);
+            } else {
+                this.editor.value = this.editor.value.substring(0, lineStart) + '> ' + this.editor.value.substring(lineStart);
+            }
+            
+            this.editor.focus();
+            this.updatePreview();
+        }
+
+        insertList(type) {
+            const start = this.editor.selectionStart;
+            const lineStart = this.editor.value.lastIndexOf('\n', start - 1) + 1;
+            const line = this.editor.value.substring(lineStart, start);
+            
+            if (type === 'ul') {
+                if (line.startsWith('* ')) {
+                    this.editor.value = this.editor.value.substring(0, lineStart) + line.substring(2) + this.editor.value.substring(start);
+                } else {
+                    this.editor.value = this.editor.value.substring(0, lineStart) + '* ' + this.editor.value.substring(lineStart);
+                }
+            } else {
+                if (/^\d+\. /.test(line)) {
+                    this.editor.value = this.editor.value.substring(0, lineStart) + line.replace(/^\d+\. /, '') + this.editor.value.substring(start);
+                } else {
+                    this.editor.value = this.editor.value.substring(0, lineStart) + '1. ' + this.editor.value.substring(lineStart);
+                }
+            }
+            
+            this.editor.focus();
+            this.updatePreview();
+        }
+
+        updateStats() {
+            const text = this.editor.value;
+            document.getElementById('char-count').textContent = text.length;
+            document.getElementById('line-count').textContent = text.split('\n').length;
+        }
+    }
+
+    // 初始化编辑器
+    document.addEventListener('DOMContentLoaded', () => {
+        new MarkdownEditor();
+    });
+</script>
+</body>
+</html>
