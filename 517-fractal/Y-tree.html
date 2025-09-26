@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Y-Tree Fractal</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #111;
+        }
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="fractalCanvas"></canvas>
+    <script>
+        const canvas = document.getElementById('fractalCanvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // Fractal parameters
+        const maxDepth = 5;
+        const startLength = canvas.height / 4;
+        const splitAngle = 90; // Angle between the branches
+        const lengthRatio = 0.7; // How much smaller the next branch is
+
+        function drawBranch(x, y, length, angle, depth) {
+            if (depth > maxDepth) {
+                return;
+            }
+
+            // Calculate the end point of the current branch
+            const endX = x + length * Math.cos(angle * Math.PI / 180);
+            const endY = y + length * Math.sin(angle * Math.PI / 180);
+
+            // Draw the line
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.lineTo(endX, endY);
+            ctx.stroke();
+
+            // Recursively draw the next two branches
+            drawBranch(endX, endY, length * lengthRatio, angle - splitAngle / 2, depth + 1);
+            drawBranch(endX, endY, length * lengthRatio, angle + splitAngle / 2, depth + 1);
+        }
+
+        // Initial setup and drawing
+        ctx.strokeStyle = 'yellow';
+        ctx.lineWidth = 2;
+
+        const startX = canvas.width / 2;
+        const startY = canvas.height;
+        
+        // Draw the initial trunk
+        const trunkEndY = startY - startLength;
+        ctx.beginPath();
+        ctx.moveTo(startX, startY);
+        ctx.lineTo(startX, trunkEndY);
+        ctx.stroke();
+
+        // Start the fractal branching
+        drawBranch(startX, trunkEndY, startLength * lengthRatio, -90 - splitAngle / 2, 1);
+        drawBranch(startX, trunkEndY, startLength * lengthRatio, -90 + splitAngle / 2, 1);
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="600px" height="175px"
+  viewBox="0 0 1 0.292"
+>
+  
+<g transform="translate(0, 0.291)">
+  <g id="it5">
+    <g id="it4">
+      <g id="it3">
+        <g id="it2">
+          <g id="it1">
+            <line x2="0.0370"
+			  stroke="#000" stroke-width="0.002" stroke-linecap="round"
+			  id="it0"/>
+            <use xlink:href="#it0" transform="translate(0.0370)rotate(-60)"/>
+          </g>
+          <use xlink:href="#it1" transform="translate(0.111)scale(-1,1)"/>
+        </g>
+        <use xlink:href="#it2" transform="translate(0.111)rotate(-60)"/>
+      </g>
+      <use xlink:href="#it3" transform="translate(0.333)scale(-1,1)"/>
+    </g>
+    <use xlink:href="#it4" transform="translate(0.333)rotate(-60)"/>
+  </g>
+  <use xlink:href="#it5" transform="translate(1)scale(-1,1)"/>
+</g>
+
+</svg>

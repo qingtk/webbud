@@ -1,0 +1,91 @@
+<!DOCTYPE>
+
+<html>
+
+<head>
+
+<title>C曲线</title>
+
+</head>
+
+<body>
+
+<canvas id="myCanvas" width="400" height="400" style="border:3px double #996633;">
+
+</canvas>
+
+<script type="text/javascript">
+
+   var canvas = document.getElementById('myCanvas');
+
+   var ctx = canvas.getContext('2d');
+
+   var depth=0;
+
+   function fractal_c(n,p1,p2)
+
+   { 
+
+        if (n>0)
+
+        {  
+
+           var x3=(p1.x+p1.y+p2.x-p2.y)/2;
+
+           var y3=(p2.x+p2.y+p1.y-p1.x)/2;
+
+           fractal_c(n-1,p1,{x:x3,y:y3});
+
+           fractal_c(n-1,{x:x3,y:y3},p2);
+
+        }
+
+        if (n==0)
+
+        {
+
+           ctx.strokeStyle = "red";
+
+           ctx.beginPath();
+
+           ctx.moveTo(p1.x,p1.y);
+
+           ctx.lineTo(p2.x,p2.y);
+
+           ctx.closePath();
+
+           ctx.stroke();
+
+        }
+
+   }
+
+   function go()
+
+   {
+
+        ctx.clearRect(0,0,canvas.width,canvas.height); 
+
+        ctx.lineWidth = 2;
+
+        fractal_c(depth,{x:250,y:100},{x:250,y:300}); 
+
+        depth++;     
+
+        if (depth>12)
+
+        {
+
+           depth=0;
+
+       }
+
+   }
+
+   window.setInterval('go()', 1000);
+
+</script>
+
+</body>
+
+</html>

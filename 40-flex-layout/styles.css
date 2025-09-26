@@ -1,0 +1,64 @@
+/* 基本样式 */
+body {
+    /* font-family: Arial, sans-serif; */
+    margin: 0;
+    padding: 2px;
+}
+
+.container {
+    display: flex; /* 开启 Flexbox 布局 */
+    gap: 5px; /* 设置子元素之间的间距 */
+    padding: 2px;
+    /* background-color: #fff; */
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    flex-wrap: wrap; /* 允许子元素换行 */
+}
+
+.item {
+    padding: 2px;
+    background-color: #007bff;
+    /* color: #fff; */
+    font-size: 1.2em;
+    text-align: center;
+    border-radius: 6px;
+    flex-grow: 1; /* 允许子元素按比例放大 */
+}
+
+/* 手机（小于 600px） */
+@media (max-width: 599px) {
+    .container {
+        flex-direction: column; /* 在手机上垂直排列 */
+    }
+    .item {
+        width: 100%; /* 项目占据 100% 宽度 */
+    }
+}
+
+/* 平板（600px 到 991px） */
+@media (min-width: 600px) and (max-width: 991px) {
+    .container {
+        flex-direction: row; /* 在平板上水平排列 */
+        justify-content: space-around; /* 均匀分布项目 */
+    }
+    .item {
+        flex-basis: calc(50% - 10px); /* 每个项目占据容器的一半减去间距 */
+    }
+}
+
+/* 电脑桌面（992px 及以上） */
+@media (min-width: 992px) {
+    .container {
+        flex-direction: row;
+        justify-content: space-between; /* 项目两端对齐，中间留白 */
+    }
+    .item {
+        flex-basis: calc(33.33% - 15px); /* 每个项目占据容器的三分之一减去间距 */
+    }
+}
+
+/* 额外的颜色样式，让项目更易于区分 */
+.item1 { background-color: #8F9AFF; }
+.item2 { background-color: #ADDDFF; }
+.item3 { background-color: #FFBDF9; }
+.item4 { background-color: #f0f4d7; }

@@ -2,11 +2,61 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title>CodePen - CSS Grid Layout - Template Areas</title>
-  <link rel="stylesheet" href="./style2.css">
+  <title>CSS Grid Layout - Template Areas with Theme Switcher</title>
+  <link id="theme-stylesheet" rel="stylesheet" href="./OriginalBlue.css">
+  <style>
+    .theme-switcher {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+    }
+    .theme-switcher select {
+      padding: 8px 12px;
+      border-radius: 5px;
+      border: 2px solid #ddd;
+      background: white;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .theme-switcher label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
 
 </head>
 <body>
+<!-- Theme Switcher -->
+<div class="theme-switcher">
+  <label for="theme-selector">Choose Theme:</label>
+  <select id="theme-selector">
+    <option value="DarkPurple">🔮 Dark Purple</option>
+    <option value="OriginalBlue" selected>🟦 Original Blue</option>
+    <option value="Ocean">🌊 Ocean</option>
+    <option value="Sunset">🌅 Sunset</option>
+    <option value="Forest">🌲 Forest</option>
+    <option value="Monochrome">⚫ Monochrome</option>
+    <option value="Neon">🔆 Neon</option>
+    <option value="Pastel">🎈 Pastel</option>
+    <option value="Fire">🔥 Fire</option>
+    <option value="Ice">❄️ Ice</option>
+    <option value="Earth">🌍 Earth</option>
+    <option value="SpringFresh">🌱 Spring Fresh</option>
+    <option value="SunnyDay">☀️ Sunny Day</option>
+    <option value="PureDream">🤍 Pure Dream</option>
+    <option value="CoralBreeze">🌺 Coral Breeze</option>
+    <option value="MintFresh">🍃 Mint Fresh</option>
+  </select>
+</div>
+
 <!-- partial:index.partial.html -->
 <div class="container">
   <div class="item header">header</div>
@@ -18,6 +68,54 @@
 </div>
 <!-- partial -->
   <script  src="./script2.js"></script>
+  
+  <script>
+    // Theme switcher functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const themeSelector = document.getElementById('theme-selector');
+      const themeStylesheet = document.getElementById('theme-stylesheet');
+      
+      // Migration mapping for old theme names to new names
+      const themeMigration = {
+        'style1': 'DarkPurple',
+        'style2': 'OriginalBlue',
+        'style3': 'Ocean',
+        'style4': 'Sunset',
+        'style5': 'Forest',
+        'style6': 'Monochrome',
+        'style7': 'Neon',
+        'style8': 'Pastel',
+        'style9': 'Fire',
+        'style10': 'Ice',
+        'style11': 'Earth'
+      };
+      
+      // Load saved theme from localStorage or default to OriginalBlue
+      let savedTheme = localStorage.getItem('selectedTheme') || 'OriginalBlue';
+      
+      // Migrate old theme names to new ones
+      if (themeMigration[savedTheme]) {
+        savedTheme = themeMigration[savedTheme];
+        localStorage.setItem('selectedTheme', savedTheme);
+      }
+      
+      themeSelector.value = savedTheme;
+      themeStylesheet.href = `./${savedTheme}.css`;
+      
+      // Handle theme change
+      themeSelector.addEventListener('change', function() {
+        const selectedTheme = themeSelector.value;
+        themeStylesheet.href = `./${selectedTheme}.css`;
+        localStorage.setItem('selectedTheme', selectedTheme);
+        
+        // Add a smooth transition effect
+        document.body.style.transition = 'all 0.3s ease';
+        setTimeout(() => {
+          document.body.style.transition = '';
+        }, 300);
+      });
+    });
+  </script>
 
 </body>
 </html>

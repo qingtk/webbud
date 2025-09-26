@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unicode字符表 (256列)</title>
+    <style>
+        body {
+            font-family: monospace,'Courier New';
+            margin: 1px;
+        }
+        
+        .container {
+            max-width: 100%;
+            overflow-x: auto;
+            padding: 2px;
+        }
+              
+        .controls {
+            text-align: center;
+        }
+        
+ 
+        .controls select option {
+            background: #2a5298;
+        }
+        
+        .unicode-table {
+            width: 100%;
+            border-collapse: collapse;
+            overflow: hidden;
+        }
+        
+        .unicode-table th, .unicode-table td {
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            border: 1px solid ;
+            position: relative;
+            font-size: 12px;
+        }
+        
+        .unicode-table th {
+            font-weight: bold;
+        }
+        
+
+        
+        .unicode-table td:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.2);
+            z-index: 10;
+            border: 2px solid #1ca854;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .char-display {
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .char-code {
+            font-size: 8px;
+            color: #ccc;
+            position: absolute;
+            bottom: 1px;
+            right: 2px;
+        }
+        
+        .info-panel {
+            margin-top: 2px;
+            padding: 1px;
+            text-align: center;
+        }
+        
+        .row-header {
+            background: rgba(255, 255, 255, 0.3) !important;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 768px) {
+            .unicode-table th, .unicode-table td {
+                width: 20px;
+                height: 20px;
+                font-size: 10px;
+            }
+            
+            .char-code {
+                font-size: 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">        
+        <div class="controls">
+            <span>Unicode字符表(256列)</span>
+            <label for="startRange">起始码点:</label>
+            <input type="number" id="startRange" value="0" min="0" max="1114111" step="256">
+            
+            <label for="endRange">结束码点:</label>
+            <input type="number" id="endRange" value="2550" min="255" max="1114111" step="256">
+            
+            <button onclick="generateTable()" style="padding: 5px 15px; border: 1px solid #ccc; border-radius: 3px; color: #333; cursor: pointer;">生成表格</button>
+            
+            <!-- <button onclick="resetTable()" style="padding: 5px 15px; border: 1px solid #ccc; border-radius: 3px; background: white; color: #333; cursor: pointer; margin-left: 10px;">重置</button> -->
+        </div>
+        
+        <table class="unicode-table" id="unicodeTable">
+        </table>
+        
+        <div class="info-panel" id="infoPanel">
+            <div id="charInfo"></div>
+        </div>
+    </div>
+
+    <script>
+        let currentStart = 0;
+        let currentEnd = 255;
+        
+        function generateTable() {
+            const startRange = parseInt(document.getElementById('startRange').value);
+            const endRange = parseInt(document.getElementById('endRange').value);
+            
+            if (endRange <= startRange) {
+                alert('结束码点必须大于起始码点');
+                return;
+            }
+            
+            currentStart = startRange;
+            currentEnd = endRange;
+            
+            createUnicodeTable(startRange, endRange);
+        }
+        
+        function resetTable() {
+            document.getElementById('startRange').value = 0;
+            document.getElementById('endRange').value = 255;
+            currentStart = 0;
+            currentEnd = 255;
+            createUnicodeTable(0, 255);
+        }
+        
+        function createUnicodeTable(start, end) {
+            const table = document.getElementById('unicodeTable');
+            table.innerHTML = '';
+            
+            // 创建表头
+            const thead = table.createTHead();
+            const headerRow = thead.insertRow();
+            
+            // 第一列空白
+            headerRow.insertCell().innerHTML = '';
+            
+            // 列标题 (00-FF)
+            for (let col = 0; col < 256; col++) {
+                const th = document.createElement('th');
+                th.textContent = col.toString(16).toUpperCase().padStart(2, '0');
+                headerRow.appendChild(th);
+            }
+            
+            // 创建表体
+            const tbody = table.createTBody();
+            
+            // 计算需要的行数
+            const rows = Math.ceil((end - start + 1) / 256);
+            
+            for (let row = 0; row < rows; row++) {
+                const tr = tbody.insertRow();
+                
+                // 行标题
+                const rowHeader = tr.insertCell();
+                const baseCode = start + (row * 256);
+                rowHeader.textContent = baseCode.toString(16).toUpperCase().padStart(4, '0');
+                rowHeader.className = 'row-header';
+                
+                // 每行256个字符
+                for (let col = 0; col < 256; col++) {
+                    const codePoint = baseCode + col;
+                    const td = tr.insertCell();
+                    
+                    if (codePoint <= end) {
+                        // 显示字符
+                        const char = String.fromCodePoint(codePoint);
+                        const charDiv = document.createElement('div');
+                        charDiv.className = 'char-display';
+                        
+                        // 处理不可见字符
+                        if (codePoint < 32 || (codePoint >= 127 && codePoint < 160)) {
+                            charDiv.textContent = '·';
+                            charDiv.style.color = '#888';
+                        } else {
+                            charDiv.textContent = char;
+                        }
+                        
+                        //const codeDiv = document.createElement('div');
+                       // codeDiv.className = 'char-code';
+                       // codeDiv.textContent = codePoint.toString(16).toUpperCase();
+                        
+                        td.appendChild(charDiv);
+                       // td.appendChild(codeDiv);
+                        
+                        // 添加点击事件
+                        td.onclick = () => showCharInfo(codePoint, char);
+                        td.title = `U+${codePoint.toString(16).toUpperCase().padStart(4, '0')} ${char}`;
+                    } else {
+                        td.style.background = 'rgba(0, 0, 0, 0.3)';
+                    }
+                }
+            }
+        }
+        
+        function showCharInfo(codePoint, char) {
+            const infoDiv = document.getElementById('charInfo');
+            
+            // 获取字符信息
+            const hex = codePoint.toString(16).toUpperCase().padStart(4, '0');
+            const binary = codePoint.toString(2).padStart(16, '0');
+            const decimal = codePoint.toString(10);
+            
+            // 检查字符类型
+            let charType = '未知';
+            if (codePoint < 32) charType = '控制字符';
+            else if (codePoint < 127) charType = 'ASCII可打印字符';
+            else if (codePoint < 256) charType = 'Latin-1补充';
+            else if (codePoint < 512) charType = 'Latin扩展-A';
+            else if (codePoint < 688) charType = 'Latin扩展-B';
+            else charType = 'Unicode字符';
+            
+            infoDiv.innerHTML = `
+                <p>字符: <span style="font-size: 32px;">${char}</span>
+                 U+${hex} HTML实体: &amp;#${decimal};  &amp;#x${hex}; ${charType}</p>
+            `;
+        }
+        
+        // 初始化表格
+        createUnicodeTable(0, 4500);
+    </script>
+</body>
+</html>

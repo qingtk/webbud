@@ -1,0 +1,83 @@
+.container {
+  display: grid;
+  width: 750px;
+  height: 600px;
+  grid-template-columns: 200px 1fr 1fr;
+  grid-template-rows: auto 1fr 1fr auto;
+  grid-gap: 1rem;
+  grid-template-areas:
+      "header header header"
+      "sidebar content-1 content-1"
+      "sidebar content-2 content-3"
+      "footer footer footer";
+}
+
+.header {
+  grid-area: header;
+}
+
+.sidebar {
+  grid-area: sidebar;
+}
+
+.content-1 {
+  grid-area: content-1;
+}
+
+.content-2 {
+  grid-area: content-2;
+}
+
+.content-3 {
+  grid-area: content-3;
+}
+
+.footer {
+  grid-area: footer;
+  grid-row: 4 / 5;
+  grid-column: 1 / 4;
+}
+
+/* OTHER STYLES - Dark Purple Theme */
+
+body {
+  background-color: #1a0d2e;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+.item {
+  background-color: #4c1a57;
+  background-image: linear-gradient(130deg, #2d1b5b 0%, #4c1a57 85%, #6a0572 100%);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  color: #ffffff;
+  border-radius: 4px;
+  border: 6px solid #0d0d0d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.header {
+  background-color: #4c1a57;
+  background-image: linear-gradient(160deg, #2d1b5b 0%, #5b2c6f 127%);
+}
+
+.sidebar {
+  background-image: linear-gradient(203deg, #6a0572 0%, #8e44ad 90%)
+}
+
+.content-1,
+.content-2,
+.content-3 {
+  background-image: linear-gradient(130deg, #2d1b5b 0%, #4c1a57 85%, #6a0572 100%);
+}
+
+.footer {
+  background-color: #2d1b5b;
+  background-image: linear-gradient(160deg, #2d1b5b 0%, #5b2c6f 127%);
+}
