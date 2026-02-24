@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hue Flexbox List</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+    }
+    .flex-container {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .flex-item {
+      flex: 1 0 100px;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      text-shadow: 0 0 4px rgba(0,0,0,0.5);
+    }
+  </style>
+</head>
+<body>
+  <div class="flex-container">
+    <!-- Hue goes from 0 → 1, multiplied by 360 for HSL degrees -->
+    <div class="flex-item" style="background-color: hsl(0, 100%, 50%)">0.0</div>
+    <div class="flex-item" style="background-color: hsl(36, 100%, 50%)">0.1</div>
+    <div class="flex-item" style="background-color: hsl(72, 100%, 50%)">0.2</div>
+    <div class="flex-item" style="background-color: hsl(108, 100%, 50%)">0.3</div>
+    <div class="flex-item" style="background-color: hsl(144, 100%, 50%)">0.4</div>
+    <div class="flex-item" style="background-color: hsl(180, 100%, 50%)">0.5</div>
+    <div class="flex-item" style="background-color: hsl(216, 100%, 50%)">0.6 216</div>
+    <div class="flex-item" style="background-color: hsl(252, 100%, 50%)">0.7 252</div>
+    <div class="flex-item" style="background-color: hsl(288, 100%, 50%)">0.8</div>
+    <div class="flex-item" style="background-color: hsl(324, 100%, 50%)">0.9</div>
+    <div class="flex-item" style="background-color: hsl(360, 100%, 50%)">1.0</div>
+  </div>
+</body>
+</html>

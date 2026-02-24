@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8" />
+<title>webbud · 网蕾</title>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: system-ui;
+}
+
+#topbar {
+  background: #111;
+  color: #0f0;
+  padding: 6px 12px;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+}
+
+#main {
+  flex: 1;
+  display: flex;
+}
+
+.editor {
+  width: 33.33%;
+  height: 100%;
+}
+
+#preview {
+  width: 34%;
+  border: none;
+  background: white;
+}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/min/vs/loader.js"></script>
+</head>
+
+<body>
+
+<div id="topbar">
+  <div>🌱 webbud · 网蕾</div>
+  <div>Auto Save ✓</div>
+</div>
+
+<div id="main">
+  <div id="html" class="editor"></div>
+  <div id="css" class="editor"></div>
+  <div id="js" class="editor"></div>
+  <iframe id="preview" sandbox="allow-scripts"></iframe>
+</div>
+
+<script>
+require.config({
+  paths: { vs: "https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/min/vs" }
+});
+
+require(["vs/editor/editor.main"], function () {
+
+  const htmlEditor = monaco.editor.create(
+    document.getElementById("html"),
+    {
+      value: localStorage.html || "<h1>Hello webbud 🌱</h1>",
+      language: "html",
+      theme: "vs-dark",
+      automaticLayout: true
+    }
+  );
+
+  const cssEditor = monaco.editor.create(
+    document.getElementById("css"),
+    {
+      value: localStorage.css || "body { font-family: sans-serif; }",
+      language: "css",
+      theme: "vs-dark",
+      automaticLayout: true
+    }
+  );
+
+  const jsEditor = monaco.editor.create(
+    document.getElementById("js"),
+    {
+      value: localStorage.js || "console.log('webbud ready');",
+      language: "javascript",
+      theme: "vs-dark",
+      automaticLayout: true
+    }
+  );
+
+  const iframe = document.getElementById("preview");
+
+  function run() {
+    const html = htmlEditor.getValue();
+    const css = cssEditor.getValue();
+    const js = jsEditor.getValue();
+
+    localStorage.html = html;
+    localStorage.css = css;
+    localStorage.js = js;
+
+    iframe.srcdoc = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+      <style>${css}</style>
+      </head>
+      <body>
+      ${html}
+      <script>${js}<\/script>
+      </body>
+      </html>
+    `;
+  }
+
+  htmlEditor.onDidChangeModelContent(run);
+  cssEditor.onDidChangeModelContent(run);
+  jsEditor.onDidChangeModelContent(run);
+
+  run();
+});
+</script>
+
+</body>
+</html>

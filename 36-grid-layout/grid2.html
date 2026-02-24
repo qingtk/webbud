@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <title>CSS Grid Layout - Template Areas with Theme Switcher</title>
-  <link id="theme-stylesheet" rel="stylesheet" href="./OriginalBlue.css">
+  <link id="theme-stylesheet" rel="stylesheet" href="./GreenCoral.css">
   <style>
     .theme-switcher {
       position: fixed;
       top: 20px;
       right: 20px;
       background: rgba(255, 255, 255, 0.95);
-      padding: 15px;
+      padding: 1px;
       border-radius: 10px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.2);
       backdrop-filter: blur(10px);
@@ -30,6 +30,68 @@
       font-weight: bold;
       color: #333;
     }
+    
+    /* Mathematical Animation for Content-2 */
+    .content-2 {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .content-2::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255,255,255,0.2) 0%, transparent 50%),
+        radial-gradient(circle at 40% 70%, rgba(255,255,255,0.15) 0%, transparent 50%);
+      animation: mathWave 8s ease-in-out infinite;
+      pointer-events: none;
+    }
+    
+    .content-2::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+      animation: mathSweep 6s linear infinite;
+      pointer-events: none;
+    }
+    
+    @keyframes mathWave {
+      0%, 100% {
+        transform: translateY(0px) scale(1) rotate(0deg);
+        opacity: 0.8;
+      }
+      25% {
+        transform: translateY(-10px) scale(1.05) rotate(90deg);
+        opacity: 1;
+      }
+      50% {
+        transform: translateY(-5px) scale(0.95) rotate(180deg);
+        opacity: 0.6;
+      }
+      75% {
+        transform: translateY(-15px) scale(1.1) rotate(270deg);
+        opacity: 0.9;
+      }
+    }
+    
+    @keyframes mathSweep {
+      0% {
+        transform: translateX(-100%) skewX(-15deg);
+      }
+      100% {
+        transform: translateX(200%) skewX(-15deg);
+      }
+    }
   </style>
 
 </head>
@@ -38,8 +100,9 @@
 <div class="theme-switcher">
   <label for="theme-selector">Choose Theme:</label>
   <select id="theme-selector">
+    <option value="GreenCoral" selected>🌿 Green Coral</option>
     <option value="DarkPurple">🔮 Dark Purple</option>
-    <option value="OriginalBlue" selected>🟦 Original Blue</option>
+    <option value="OriginalBlue">🟦 Original Blue</option>
     <option value="Ocean">🌊 Ocean</option>
     <option value="Sunset">🌅 Sunset</option>
     <option value="Forest">🌲 Forest</option>
@@ -89,9 +152,8 @@
         'style10': 'Ice',
         'style11': 'Earth'
       };
-      
-      // Load saved theme from localStorage or default to OriginalBlue
-      let savedTheme = localStorage.getItem('selectedTheme') || 'OriginalBlue';
+      // Load saved theme from localStorage or default to GreenCoral
+      let savedTheme = localStorage.getItem('selectedTheme') || 'GreenCoral';
       
       // Migrate old theme names to new ones
       if (themeMigration[savedTheme]) {

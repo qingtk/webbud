@@ -1,0 +1,135 @@
+@charset "utf-8";
+
+/* Variables for light & dark modes. */
+
+:root {
+	--nano-content-bg-color: #fff;
+	--nano-content-fg-color: #007712;
+	--nano-inverted-bg-color: rgb(36, 0, 119);
+	--nano-inverted-fg-color: #fff;
+	--nano-a-color: rgb(88, 2, 247);
+	--nano-a-visited-color: #e805be;
+	--nano-a-active-color: #F00;
+	--nano-a-inverted-color: #fff;
+}
+
+@media (prefers-color-scheme: dark) {
+:root {
+	--nano-content-bg-color: #111;
+	--nano-content-fg-color: #cc88ff;
+	--nano-inverted-bg-color: #9200ff;
+	--nano-inverted-fg-color: #fff;
+	--nano-a-color: #c8f;
+	--nano-a-visited-color: #b7f;
+	--nano-a-active-color: #F00;
+	--nano-a-inverted-color: #fff;
+}
+}
+
+body {
+	color: var(--nano-content-fg-color);
+	background-color: var(--nano-content-bg-color);
+}
+.inverted {
+	color: var(--nano-inverted-fg-color);
+	background-color: var(--nano-inverted-bg-color);
+}
+
+a {
+	color: var(--nano-a-color);
+}
+a:visited {
+	color: var(--nano-a-visited-color);
+}
+a:active {
+	color: var(--nano-a-active-color);
+}
+
+.inverted a {
+	color: var(--nano-a-inverted-color);
+}
+
+* {
+	box-sizing: border-box;
+}
+
+.onecolumn {
+	float: left;
+	width: 45%;
+	padding: 5%;
+}
+
+table {
+	border-spacing: 0px;
+	border-collapse: separate;
+}
+
+table#homepage {
+	padding-top: 3em;
+	padding-bottom: 3em;
+}
+
+table#top td,
+div#bottom .indented {
+	padding-left: 1ch;
+	padding-right: 1ch;
+}
+
+table#docs,
+table#download {
+	width: 80%;
+}
+
+div#bottom {
+	display: flex;
+	flex-wrap: wrap;
+}
+div#bottom span.menuitem {
+	flex-basis: 25%;
+	flex-grow: 1;
+	flex-shrink: 0;
+	line-height: 1em;
+	white-space: nowrap;
+}
+
+/* Mobile (i.e. phones) */
+@media only screen and (max-width: 768px) {
+body {
+	margin: 0px;
+}
+
+blockquote {
+	margin: 1em 0 1em 0;
+}
+
+table#homepage {
+	font-size: x-small;
+}
+
+table#top td,
+div#bottom .indented {
+	padding-left: 0.5ch;
+	padding-right: 0.5ch;
+}
+
+div#bottom span.menuitem {
+	font-size: large;
+	line-height: inherit;
+}
+
+table#docs,
+table#download {
+	width: 100%;
+}
+
+#screenshots ul {
+	padding-left: 0;
+}
+}
+
+@media only screen and (max-width: 600px) {
+div#bottom span.menuitem {
+	flex-basis: 50%;
+	line-height: 1.5em;
+}
+}

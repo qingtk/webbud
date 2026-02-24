@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<title>随机圆动画</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<style>
+  html,body { margin:0; height:100%; background:#fff; overflow:hidden; }
+  canvas { display:block; }
+</style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+
+<script>
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+resize();
+window.addEventListener("resize", resize);
+
+function resize(){
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+
+// 随机颜色 (HSL)
+function randomColor(){
+  return `hsl(${Math.random()*360}, 80%, 50%)`;
+}
+
+// 随机圆数据
+const circles = Array.from({length:20}, ()=>({
+  x: Math.random()*canvas.width,
+  y: Math.random()*canvas.height,
+  r: 20 + Math.random()*50,
+  color: randomColor(),
+  dx: (Math.random()-0.5)*1.5,
+  dy: (Math.random()-0.5)*1.5
+}));
+
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  circles.forEach(c=>{
+    ctx.beginPath();
+    ctx.strokeStyle = c.color;
+    ctx.lineWidth = 2;
+    ctx.arc(c.x, c.y, c.r, 0, Math.PI*2);
+    ctx.stroke();
+
+    // 更新位置 (反弹)
+    c.x += c.dx;
+    c.y += c.dy;
+    if(c.x-c.r<0 || c.x+c.r>canvas.width) c.dx*=-1;
+    if(c.y-c.r<0 || c.y+c.r>canvas.height) c.dy*=-1;
+  });
+}
+
+function animate(){
+  draw();
+  requestAnimationFrame(animate);
+}
+animate();
+</script>
+</body>
+</html>
