@@ -186,7 +186,7 @@
       </select>
       <button class="bs" id="bExport">⬇ 导出音频</button>
     </div>
-    <p class="tip">导出时浏览器会弹出"共享标签页"对话框，请选择<b>当前标签页</b>并勾选"同时共享标签页音频"后确认。录制期间请勿切换标签页或播放其他声音。</p>
+    <p class="tip">导出时浏览器会弹出屏幕共享对话框，请切换到<b>「整个屏幕」</b>选项卡，勾选底部<b>「同时共享系统音频」</b>后点击分享。录制期间请勿播放其他声音以保证音频纯净。</p>
   </div>
 </div>
 
@@ -338,19 +338,19 @@ bExport.onclick = async function () {
   bExport.textContent = '⏳ 准备录制…';
 
   try {
-    setStatus('🎙️ 请在弹窗中选择当前标签页并确认…', 'recording');
+    setStatus('🎙️ 请选择「整个屏幕」并勾选「同时共享系统音频」…', 'recording');
 
-    // 1. capture tab audio via getDisplayMedia
+    // 1. capture system audio (speechSynthesis outputs via OS, not browser tab)
     const display = await navigator.mediaDevices.getDisplayMedia({
-      audio: true, video: true,
-      preferCurrentTab: true,
-      selfBrowserSurface: 'include'
+      video: true,
+      audio: true,
+      systemAudio: 'include'
     });
 
     const audioTracks = display.getAudioTracks();
     if (!audioTracks.length) {
       display.getTracks().forEach(t => t.stop());
-      throw new Error('未获取到音频轨道，请确保勾选了"同时共享标签页音频"');
+      throw new Error('未获取到音频轨道，请选择「整个屏幕」并勾选「同时共享系统音频」');
     }
     // drop video track
     display.getVideoTracks().forEach(t => t.stop());
@@ -368,11 +368,12 @@ bExport.onclick = async function () {
       rec.onerror = e  => rej(e.error || e);
     });
 
-    // 3. start recording, then speak
+    // 3. start recording, then speak (brief delay to skip share-dialog sounds)
     rec.start();
     setStatus('🔴 录制中…', 'recording');
     bExport.textContent = '🔴 录制中…';
 
+    await new Promise(r => setTimeout(r, 600));
     synth.cancel();
     const eu = makeUtt(text);
 
