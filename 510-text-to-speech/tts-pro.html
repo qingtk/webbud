@@ -7,30 +7,28 @@
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-    background: #f0f2f5; color: #333; line-height: 1.6;
-    min-height: 100vh; padding: 24px 16px;
+        min-height: 100vh;
   }
   .container { max-width: 780px; margin: 0 auto; }
-  h1 { text-align: center; margin-bottom: 24px; color: #1a1a2e; font-size: 26px; }
+  h1 { text-align: center;  color: #1a1a2e; font-size: 26px; }
   .card {
     background: #fff; border-radius: 12px;
-    box-shadow: 0 2px 12px rgba(0,0,0,.07); padding: 22px; margin-bottom: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,.07); padding: 4px; margin-bottom: 2px;
   }
   .card h2 {
-    font-size: 15px; color: #555; margin-bottom: 14px;
-    border-bottom: 1px solid #eee; padding-bottom: 8px;
+    font-size: 15px; color: #555; margin-bottom: 2px;
+    border-bottom: 1px solid #eee; padding-bottom: 1px;
   }
   /* ---------- textarea ---------- */
   textarea {
     width: 100%; height: 140px; border: 2px solid #e0e0e0; border-radius: 8px;
-    padding: 12px; font-size: 15px; resize: vertical; font-family: inherit;
+    padding: 2px; font-size: 15px; resize: vertical; font-family: inherit;
     transition: border-color .25s;
   }
   textarea:focus { outline: none; border-color: #4a6cf7; }
-  .text-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 6px; }
+  .text-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 2px; }
   .text-info { font-size: 13px; color: #999; }
-  .presets { display: flex; gap: 6px; flex-wrap: wrap; }
+  .presets { display: flex; gap: 2px; flex-wrap: wrap; }
   .preset-btn {
     padding: 3px 12px; background: #f3f3f3; border-radius: 20px;
     font-size: 12px; color: #666; cursor: pointer; border: 1px solid #ddd;
@@ -38,15 +36,15 @@
   }
   .preset-btn:hover { background: #e4e4e4; }
   /* ---------- controls ---------- */
-  .ctrl { margin-bottom: 14px; }
+  .ctrl { margin-bottom: 2px; }
   .ctrl:last-child { margin-bottom: 0; }
-  .ctrl label { display: block; font-weight: 600; margin-bottom: 5px; font-size: 14px; }
+  .ctrl label { display: block; font-weight: 600;  font-size: 14px; }
   select {
-    width: 100%; padding: 9px 10px; border: 2px solid #e0e0e0; border-radius: 8px;
+    width: 100%; border: 2px solid #e0e0e0; border-radius: 4px;
     font-size: 14px; background: #fff; cursor: pointer;
   }
   select:focus { outline: none; border-color: #4a6cf7; }
-  .slider-row { display: flex; align-items: center; gap: 12px; }
+  .slider-row { display: flex; align-items: center; gap: 2px; }
   input[type="range"] {
     flex: 1; -webkit-appearance: none; height: 6px;
     background: #e0e0e0; border-radius: 3px; outline: none;
@@ -59,14 +57,14 @@
     min-width: 42px; text-align: center; font-weight: 700;
     color: #4a6cf7; font-size: 14px;
   }
-  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
   /* ---------- buttons ---------- */
-  .btn-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .btn-row { display: flex; gap: 12px; flex-wrap: wrap; }
   button {
-    padding: 9px 18px; border: none; border-radius: 8px;
+    border: none; border-radius: 2px;
     font-size: 14px; font-weight: 600; cursor: pointer;
     transition: background .2s, opacity .2s;
-    display: inline-flex; align-items: center; gap: 5px;
+    display: inline-flex; align-items: center; gap: 12px;
   }
   button:disabled { opacity: .45; cursor: not-allowed; }
   .bp { background: #4a6cf7; color: #fff; }
@@ -79,9 +77,9 @@
   .bd:hover:not(:disabled) { background: #dc2626; }
   /* ---------- status ---------- */
   .status {
-    margin-top: 14px; padding: 10px 14px; border-radius: 8px;
+    margin-top: 2px;  border-radius: 8px;
     background: #f8f9fa; font-size: 14px; color: #666;
-    display: flex; align-items: center; gap: 8px; min-height: 42px;
+    display: flex; align-items: center; gap: 2px; min-height: 42px;
     transition: background .3s, color .3s;
   }
   .status.speaking { background: #eff6ff; color: #1d4ed8; }
@@ -94,7 +92,7 @@
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.25} }
   /* ---------- highlight ---------- */
   .hl-box {
-    margin-top: 12px; padding: 14px; background: #f8f9fa; border-radius: 8px;
+    margin-top: 2px; padding: 14px; background: #f8f9fa; border-radius: 8px;
     font-size: 15px; line-height: 1.9; max-height: 180px;
     overflow-y: auto; white-space: pre-wrap; word-break: break-word; display: none;
   }
@@ -104,7 +102,7 @@
   /* ---------- export ---------- */
   .export-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
   .export-row select { width: auto; min-width: 130px; }
-  .tip { font-size: 12px; color: #999; margin-top: 10px; line-height: 1.6; }
+  .tip { font-size: 12px; color: #999; margin-top: 2px; line-height: 1.6; }
   /* ---------- responsive ---------- */
   @media(max-width:600px){
     .grid2 { grid-template-columns: 1fr; }
@@ -115,11 +113,8 @@
 <body>
 
 <div class="container">
-  <h1>🔊 文字转语音工具</h1>
-
   <!-- ====== Text Input ====== -->
   <div class="card">
-    <h2>📝 输入文本</h2>
     <textarea id="txt" placeholder="请输入要转换的文本…">Web Speech API 提供了语音合成功能，可以将文本转换为自然流畅的语音。你可以调节语速、音调和音量，还可以选择不同的语音角色来朗读文本。</textarea>
     <div class="text-meta">
       <div class="presets">
@@ -133,7 +128,6 @@
 
   <!-- ====== Voice Settings ====== -->
   <div class="card">
-    <h2>🎛️ 语音设置</h2>
     <div class="ctrl">
       <label for="voice">🗣️ 语音</label>
       <select id="voice"></select>
@@ -165,7 +159,7 @@
 
   <!-- ====== Playback ====== -->
   <div class="card">
-    <h2>▶️ 播放控制</h2>
+    <h2>🔊 播放控制</h2>
     <div class="btn-row">
       <button class="bp" id="bPlay">▶ 播放</button>
       <button class="bw" id="bPause" disabled>⏸ 暂停</button>
@@ -178,7 +172,6 @@
 
   <!-- ====== Export ====== -->
   <div class="card">
-    <h2>💾 导出音频</h2>
     <div class="export-row">
       <select id="fmt">
         <option value="wav">WAV 格式</option>
