@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Windows 2000 Professional</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="desktop">
+        <div class="desktop-icon" ondblclick="openApp('explorer.html', '我的电脑', 600, 400)">
+            <div class="icon-img" style="background: url('https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png') no-repeat center;"></div>
+            我的电脑
+        </div>
+        <div class="desktop-icon" ondblclick="openApp('browser.html', 'Internet Explorer', 800, 500)">
+            <div class="icon-img" style="background: url('https://win98icons.alexmeub.com/icons/png/msie2-2.png') no-repeat center;"></div>
+            网上邻居
+        </div>
+        <div class="desktop-icon" ondblclick="openApp('notepad.html', '未命名 - 记事本', 400, 300)">
+            <div class="icon-img" style="background: url('https://win98icons.alexmeub.com/icons/png/notepad-0.png') no-repeat center;"></div>
+            记事本
+        </div>
+    </div>
+
+    <div id="start-menu" class="outset">
+        <div class="start-side">Windows 2000 Professional</div>
+        <div class="start-items">
+            <div class="start-item" onclick="openApp('explorer.html', '资源管理器', 600, 400); toggleStart();">资源管理器</div>
+            <div class="start-item" onclick="openApp('browser.html', 'Internet Explorer', 800, 500); toggleStart();">Internet Explorer</div>
+            <div class="start-item" onclick="openApp('notepad.html', '记事本', 400, 300); toggleStart();">记事本</div>
+            <hr>
+            <div class="start-item" onclick="alert('现在关机吗？'); toggleStart();">关机...</div>
+        </div>
+    </div>
+
+    <div id="taskbar" class="outset">
+        <div id="start-btn" class="outset" onclick="toggleStart()">
+            <img src="https://win98icons.alexmeub.com/icons/png/windows-0.png" alt="logo"> 开始
+        </div>
+        <div id="task-list" style="display:flex; flex-grow: 1; overflow:hidden; padding-left: 5px;"></div>
+        <div id="clock" class="inset">12:00 PM</div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

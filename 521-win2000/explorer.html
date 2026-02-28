@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body, html { height: 100%; overflow: hidden; background: #c0c0c0; }
+        .main-view { display: flex; height: calc(100% - 55px); margin-top: 2px;}
+        .sidebar { width: 150px; background: white; margin-right: 2px; padding: 5px; overflow: auto;}
+        .file-area { flex-grow: 1; background: white; padding: 10px; overflow: auto; display: flex; flex-wrap: wrap; align-content: flex-start;}
+        .file-item {
+            width: 60px;
+            text-align: center;
+            margin: 5px;
+            cursor: pointer;
+        }
+        .file-icon { width: 32px; height: 32px; background: #f2cb1d; margin: 0 auto; border: 1px solid brown;}
+        .tree-node { padding-left: 10px; cursor: pointer; }
+        .tree-node:hover { background: #000080; color: white; }
+    </style>
+</head>
+<body>
+    <div class="menubar">
+        <span>文件(F)</span> <span>编辑(E)</span> <span>查看(V)</span> <span>收藏(A)</span>
+    </div>
+    <div class="toolbar">
+        <button class="outset">后退</button> 
+        <button class="outset">前进</button> 
+        <button class="outset">向上</button> 
+    </div>
+    <div class="address-bar" style="padding:2px; display:flex;">
+        <span>地址(D):</span>
+        <input type="text" value="C:\My Documents" class="inset" style="flex-grow:1; margin-left:5px;">
+    </div>
+    <div class="main-view">
+        <div class="sidebar inset">
+            <div class="tree-node">桌面</div>
+            <div class="tree-node">├─ 我的电脑</div>
+            <div class="tree-node">│  ├─ 本地磁盘 (C:)</div>
+            <div class="tree-node">│  └─ 本地磁盘 (D:)</div>
+        </div>
+        <div class="file-area inset">
+            <div class="file-item">
+                <div class="file-icon"></div>
+                <span>我的文档</span>
+            </div>
+            <div class="file-item">
+                <div class="file-icon" style="background:white; border:1px solid gray;"></div>
+                <span>说明.txt</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

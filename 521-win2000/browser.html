@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body, html { height: 100%; overflow: hidden; background: #c0c0c0;}
+        .address-bar { display: flex; align-items: center; padding: 2px; }
+        input { flex-grow: 1; margin: 0 5px; }
+        .browser-content {
+            background: white;
+            height: calc(100% - 60px);
+            padding: 20px;
+            border-top: 2px solid gray;
+            overflow: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="menubar">
+        <span>文件(F)</span> <span>编辑(E)</span> <span>查看(V)</span> <span>收藏(A)</span>
+    </div>
+    <div class="toolbar">
+        <button class="outset">后退</button>
+        <button class="outset">前进</button>
+        <button class="outset">停止</button>
+        <button class="outset">刷新</button>
+        <button class="outset">主页</button>
+    </div>
+    <div class="address-bar">
+        <span>地址(D):</span>
+        <input type="text" value="http://www.microsoft.com" class="inset">
+        <button class="outset">转到</button>
+    </div>
+    <div class="browser-content inset">
+        <h1>无法找到该页</h1>
+        <p>您正在搜索的页面可能已经删除、更名或暂时不可用。</p>
+        <hr>
+        <p style="color: gray; font-size: 10px;">HTTP 404 - 文件未找到<br>Internet Explorer</p>
+    </div>
+</body>
+</html>
