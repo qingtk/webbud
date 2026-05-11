@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>经典侧边栏菜单</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: sans-serif;
+    }
+
+    body {
+      background: #f5f5f5;
+      overflow-x: hidden;
+    }
+
+    /* 三横线按钮 */
+    .menu-btn {
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      z-index: 1001;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      padding: 8px;
+    }
+
+    .menu-btn span {
+      display: block;
+      height: 3px;
+      background: #222;
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+
+    /* 动画：变 X */
+    .menu-btn.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .menu-btn.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-btn.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px);
+    }
+
+    /* 侧边栏 */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -260px;
+      width: 260px;
+      height: 100vh;
+      background: #1e1e1e;
+      color: white;
+      padding-top: 70px;
+      transition: 0.3s ease;
+      z-index: 1000;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+    }
+
+    .sidebar.active {
+      left: 0;
+    }
+
+    .sidebar a {
+      display: block;
+      padding: 16px 24px;
+      color: white;
+      text-decoration: none;
+      transition: 0.2s;
+    }
+
+    .sidebar a:hover {
+      background: #333;
+      padding-left: 32px;
+    }
+
+    /* 页面内容 */
+    .content {
+      padding: 80px 20px;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    /* 半透明遮罩 */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.3s;
+      z-index: 999;
+    }
+
+    .overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- 三横线按钮 -->
+  <div class="menu-btn" id="menuBtn">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <!-- 左侧导航栏 -->
+  <div class="sidebar" id="sidebar">
+    <a href="#">🏠 首页</a>
+    <a href="#">📁 项目</a>
+    <a href="#">⚙ 设置</a>
+    <a href="#">📞 联系</a>
+  </div>
+
+  <!-- 遮罩 -->
+  <div class="overlay" id="overlay"></div>
+
+  <!-- 页面内容 -->
+  <div class="content">
+    <h1>经典 Hamburger Menu</h1>
+    <p>
+      点击左上角三横线展开左侧导航栏。
+    </p>
+  </div>
+
+  <script>
+    const menuBtn = document.getElementById("menuBtn");
+    const sidebar = document.getElementById("sidebar");
+    const overlay = document.getElementById("overlay");
+
+    function toggleMenu() {
+      menuBtn.classList.toggle("active");
+      sidebar.classList.toggle("active");
+      overlay.classList.toggle("active");
+    }
+
+    menuBtn.addEventListener("click", toggleMenu);
+    overlay.addEventListener("click", toggleMenu);
+  </script>
+
+</body>
+</html>

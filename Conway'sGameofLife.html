@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Conway's Game of Life</title>
+  <!-- Google Font for a clean look -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    /* Global page styling */
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #f0f4f8;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+    h1 {
+      margin-top: 2rem;
+      font-weight: 600;
+      color: #333;
+    }
+    /* Container for canvas and controls */
+    .game-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 1rem;
+    }
+    canvas {
+      border: 2px solid #555;
+      background: #fff;
+      image-rendering: pixelated; /* keep crisp squares */
+    }
+    /* Control panel */
+    .controls {
+      margin-top: 1rem;
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    button, input[type="range"] {
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button {
+      background: #4a90e2;
+      color: #fff;
+    }
+    button:hover {
+      background: #357ab8;
+    }
+    input[type="range"] {
+      width: 150px;
+    }
+    .status {
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      color: #555;
+    }
+  </style>
+  <!-- Load Tailwind script for non‑game pages (required by platform) -->
+  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+</head>
+<body>
+  <h1>Conway's Game of Life</h1>
+  <div class="game-wrapper">
+    <canvas id="lifeCanvas" width="500" height="500"></canvas>
+    <div class="controls">
+      <button id="startBtn">Start</button>
+      <button id="pauseBtn" disabled>Pause</button>
+      <button id="resetBtn">Reset</button>
+      <label>
+        Speed:
+        <input type="range" id="speedSlider" min="1" max="20" value="5">
+      </label>
+    </div>
+    <div class="status" id="status">Generation: 0</div>
+  </div>
+
+  <script>
+    // ==============================
+    // Game of Life Implementation
+    // ==============================
+    const canvas = document.getElementById('lifeCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Configuration
+    const CELL_SIZE = 5;               // pixels per cell
+    const COLS = canvas.width / CELL_SIZE;
+    const ROWS = canvas.height / CELL_SIZE;
+
+    // Game state
+    let grid = createEmptyGrid();
+    let running = false;
+    let generation = 0;
+    let intervalId = null;
+    let speed = 5; // generations per second
+
+    // UI elements
+    const startBtn = document.getElementById('startBtn');
+    const pauseBtn = document.getElementById('pauseBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const speedSlider = document.getElementById('speedSlider');
+    const statusDiv = document.getElementById('status');
+
+    // ------------------------------
+    // Helper: create a 2D array filled with 0
+    // ------------------------------
+    function createEmptyGrid() {
+      const arr = new Array(ROWS);
+      for (let y = 0; y < ROWS; y++) {
+        arr[y] = new Uint8Array(COLS);
+      }
+      return arr;
+    }
+
+    // ------------------------------
+    // Initialize with a random pattern
+    // ------------------------------
+    function randomizeGrid() {
+      for (let y = 0; y < ROWS; y++) {
+        for (let x = 0; x < COLS; x++) {
+          grid[y][x] = Math.random() < 0.2 ? 1 : 0; // 20% chance alive
+        }
+      }
+    }
+
+    // ------------------------------
+    // Draw the current grid onto the canvas
+    // ------------------------------
+    function drawGrid() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#4a90e2'; // alive cell color
+      for (let y = 0; y < ROWS; y++) {
+        for (let x = 0; x < COLS; x++) {
+          if (grid[y][x]) {
+            ctx.fillRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+          }
+        }
+      }
+    }
+
+    // ------------------------------
+    // Compute next generation based on Conway's rules
+    // ------------------------------
+    function step() {
+      const next = createEmptyGrid();
+      for (let y = 0; y < ROWS; y++) {
+        for (let x = 0; x < COLS; x++) {
+          const alive = grid[y][x];
+          const neighbors = countNeighbors(x, y);
+          // Apply rules
+          if (alive) {
+            next[y][x] = neighbors === 2 || neighbors === 3 ? 1 : 0;
+          } else {
+            next[y][x] = neighbors === 3 ? 1 : 0;
+          }
+        }
+      }
+      grid = next;
+      generation++;
+      statusDiv.textContent = `Generation: ${generation}`;
+      drawGrid();
+    }
+
+    // ------------------------------
+    // Count live neighbors with toroidal wrap‑around
+    // ------------------------------
+    function countNeighbors(x, y) {
